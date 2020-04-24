@@ -9,12 +9,8 @@ export class BoardColumnComponent implements OnInit {
 
   constructor() { }
 
-
-
   ngOnInit(): void {
-
   }
-
   @Input() x: number;
   @Input() column: Player[];
 }

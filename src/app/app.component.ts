@@ -1,3 +1,4 @@
+import { GameService } from './game.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private gameService: GameService) {}
   title = 'connect-four';
+  newGame(): void { this.gameService.newGame(); }
 }

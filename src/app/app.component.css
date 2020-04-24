@@ -1,0 +1,9 @@
+.newGameButton {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-family: Arial;
+  background-color: rgb(191, 197, 207);
+  border: none;
+  padding: 10pt 10pt;
+  cursor: default;
+}
