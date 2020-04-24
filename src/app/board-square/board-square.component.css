@@ -1,13 +1,12 @@
-button {
-  margin-top: 0px;
+.square {
+  margin: -1px -1px;
+
   font-family: Arial;
-  background-color: rgb(9, 100, 247);
+  background-color: rgba(9, 100, 247, 0);
+
   border: none;
   padding: 10pt 10pt;
   cursor: default;
-}
-button:hover {
-  background-color: #cfd8dc;
 }
 
 .overlay {
@@ -19,11 +18,9 @@ button:hover {
 }
 
 .red{
-
   background-color: rgb(245, 3, 3);
 }
 .yellow{
-
   background-color: rgb(255, 230, 0);
 }
 

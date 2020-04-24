@@ -1,0 +1,6 @@
+.background {
+  background-color: rgb(9, 100, 247);
+}
+.background:hover {
+  background-color: rgb(86, 149, 251);
+}

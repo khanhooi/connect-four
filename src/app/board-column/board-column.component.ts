@@ -1,3 +1,4 @@
+import { GameService } from './../game.service';
 import { Player } from './../player';
 import { Component, OnInit, Input } from '@angular/core';
 @Component({
@@ -7,10 +8,22 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BoardColumnComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
   @Input() x: number;
   @Input() column: Player[];
+
+  constructor(private gameService: GameService) { }
+
+  ngOnInit(): void {}
+
+  click(): void {
+    let y = -1;
+    this.column.every(player => {
+      ++y;
+      return player.type;
+    });
+    this.gameService.updateSquare(this.x, y);
+
+
+
+  }
 }

@@ -1,3 +1,5 @@
-<tr *ngFor="let square of column; let y=index">
+<div class="background">
+<tr *ngFor="let square of column.slice().reverse(); let y=index" (click)="click()">
   <app-board-square [player]="square" [x]="x" [y]="y"></app-board-square>
 </tr>
+</div>

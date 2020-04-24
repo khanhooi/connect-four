@@ -1,5 +1,6 @@
 import { Player, Type } from './player';
 import { Injectable } from '@angular/core';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class GameService {
 
   public updateSquare(x: number, y: number)
   {
+    if ( this.board[x][y].type ) { throw new Error('bad'); }
     this.board[x][y].type = this.getPlayer();
     this.updateNextPlayer();
   }
