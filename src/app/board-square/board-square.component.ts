@@ -18,7 +18,7 @@ export class BoardSquareComponent implements OnInit {
   }
 
   click(): void {
-    if ( this.player !== Player.none ) { return; }
+    if ( this.player.type ) { return; }
     this.game.updateSquare(this.x, this.y);
   }
 

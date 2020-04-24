@@ -1,5 +1,3 @@
 <td *ngFor="let column of gameService.board; let x=index">
-  <tr *ngFor="let square of column; let y=index">
-    <app-board-square [player]="square" [x]="x" [y]="y"></app-board-square>
-  </tr>
+  <app-board-column [x]="x" [column]="column"></app-board-column>
 </td>

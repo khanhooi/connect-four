@@ -9,11 +9,6 @@ button {
 button:hover {
   background-color: #cfd8dc;
 }
-button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
-}
 
 .overlay {
   height: 35px;
@@ -27,7 +22,6 @@ button:disabled {
 
   background-color: rgb(245, 3, 3);
 }
-
 .yellow{
 
   background-color: rgb(255, 230, 0);
