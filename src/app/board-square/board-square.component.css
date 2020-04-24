@@ -1,0 +1,36 @@
+button {
+  margin-top: 0px;
+  font-family: Arial;
+  background-color: rgb(9, 100, 247);
+  border: none;
+  padding: 10pt 10pt;
+  cursor: default;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+.overlay {
+  height: 35px;
+  width: 35px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.red{
+
+  background-color: rgb(245, 3, 3);
+}
+
+.yellow{
+
+  background-color: rgb(255, 230, 0);
+}
+
+
