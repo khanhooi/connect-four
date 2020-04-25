@@ -1,6 +1,6 @@
 import { Player } from './../player';
 import { Component, OnInit, Input } from '@angular/core';
-import { GameService } from '../game.service';
+import { GameService } from '../services/game.service';
 @Component({
   selector: 'app-board-square',
   templateUrl: './board-square.component.html',

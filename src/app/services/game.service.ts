@@ -1,4 +1,4 @@
-import { Player, Type } from './player';
+import { Player, Type } from '../player';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 
@@ -23,7 +23,7 @@ export class GameService {
     }
     this.board[x][y].type = this.getPlayer();
     const winner = this.checkWinner();
-    let boardFull = this.isBoardFull();
+    const boardFull = this.isBoardFull();
     if (!winner && !boardFull) {
       this.updateNextPlayer();
     }
