@@ -1,0 +1,24 @@
+.circle {
+  width: 40pt;
+  height:40pt;
+  border-radius: 50pc;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.boundary {
+  border-width: 5pt;
+  border-color: rgb(0, 110, 255);
+  border-style: solid;
+  background-color: rgb(10, 193, 253);
+  border-radius: 10pt;
+  padding: 10pt;
+  margin: 10pt 0pt;
+  width: fit-content;
+}

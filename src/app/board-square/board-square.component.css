@@ -1,27 +1,44 @@
 .square {
-  margin: -1px -1px;
-
+  margin: -1pt -1pt;
   font-family: Arial;
   background-color: rgba(9, 100, 247, 0);
-
   border: none;
-  padding: 10pt 10pt;
+  padding: 10pt;
   cursor: default;
 }
 
 .overlay {
-  height: 35px;
-  width: 35px;
-  background-color: #bbb;
+  height: 50pt;
+  width: 50pt;
+  background-color: white;
   border-radius: 50%;
   display: inline-block;
+  box-shadow: inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8);
+  transition: 0.2s;
 }
 
-.red{
-  background-color: rgb(245, 3, 3);
+.red {
+  background-color: red;
 }
-.yellow{
-  background-color: rgb(255, 230, 0);
+.yellow {
+  background-color: yellow;
 }
 
+.victory {
+  animation: victoryAnimation 2s infinite;
+}
 
+@keyframes victoryAnimation {
+  0% {
+    box-shadow: 0pt 0pt 10pt gold,inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8);
+  }
+  45% {
+    box-shadow: 0pt 0pt 10pt white, inset 0pt 0pt 30pt white;
+  }
+  55% {
+    box-shadow: 0pt 0pt 10pt white, inset 0pt 0pt 30pt white;
+  }
+  100% {
+    box-shadow: 0pt 0pt 10pt gold,inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8)
+  }
+}

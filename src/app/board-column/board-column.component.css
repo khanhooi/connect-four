@@ -1,6 +1,36 @@
 .background {
   background-color: rgb(9, 100, 247);
+
+  transition: 0.3s;
 }
-.background:hover {
+
+.container:hover .background{
   background-color: rgb(86, 149, 251);
+}
+
+.container:hover .halfCircle{
+  visibility: visible;
+}
+
+.halfCircle{
+  height:25pt;
+  width:50pt;
+  border-radius: 90pt 90pt 0 0;
+  border-style: solid;
+  border-width: 1pt;
+  border-bottom: 0;
+  margin: auto;
+  visibility: hidden;
+  background-color: red;
+}
+
+.red{
+  background-color: red;
+}
+.yellow{
+  background-color: yellow;
+}
+
+.columnFull {
+  visibility: hidden !important;
 }

@@ -5,9 +5,12 @@ export enum Type {
 }
 export class Player {
   static readonly Type = Type;
+  public isFourInARow: boolean;
   public type: Type;
   Player() {
     this.type = null;
+    this.isFourInARow = false;
+
   }
 }
 

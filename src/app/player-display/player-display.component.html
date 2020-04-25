@@ -1,0 +1,8 @@
+<div class="boundary">
+  Players Turn
+  <div
+    class="circle"
+    [class.red]="gameService.getPlayer() === 1"
+    [class.yellow]="gameService.getPlayer() === 2"
+  ></div>
+</div>
