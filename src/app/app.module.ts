@@ -9,6 +9,7 @@ import { BoardSquareComponent } from './board-square/board-square.component';
 import { PlayerDisplayComponent } from './player-display/player-display.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { MenuComponent } from './menu/menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MenuComponent } from './menu/menu.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
