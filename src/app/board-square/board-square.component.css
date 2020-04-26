@@ -1,7 +1,6 @@
 .square {
   /* margin: -1pt -1pt; */
   font-family: Arial;
-  /* background-color: rgba(9, 100, 247, 0); */
   border: none;
   padding: 10pt;
   cursor: default;
@@ -17,16 +16,9 @@
 }
 
 .shell {
-  /* mask-image: radial-gradient(circle farthest-side at center, transparent 49%, white 50%); */
   mask-image: radial-gradient(30px at 50% 50% , transparent 95%, white 100%);
   background-color: rgb(9, 100, 247);
   margin: -1pt -1pt;
-  /* box-shadow: 0 0 0 100px rgb(9, 100, 247); */
-  /* height: 50pt;
-  width: 50pt;
-  margin: 10pt; */
-  /* border-radius: 50%; */
-  /* overflow: hidden; */
   height: inherit;
   width: inherit;
 
@@ -35,10 +27,9 @@
 .overlay {
   height: 50pt;
   width: 50pt;
-  /* background-color: white; */
   border-radius: 50%;
   display: inline-block;
-  /* box-shadow: inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8); */
+  box-shadow: inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8);
   transition: 0.2s;
 }
 
