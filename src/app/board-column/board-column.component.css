@@ -16,19 +16,21 @@
   height:25pt;
   width:50pt;
   border-radius: 90pt 90pt 0 0;
-  border-style: solid;
   border-width: 1pt;
+
+  border-style: hidden;
   border-bottom: 0;
   margin: auto;
   visibility: hidden;
-  background-color: red;
 }
 
 .red{
   background-color: red;
+  border-style: solid;
 }
 .yellow{
   background-color: yellow;
+  border-style: solid;
 }
 
 .columnFull {

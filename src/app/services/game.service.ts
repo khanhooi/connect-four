@@ -28,6 +28,10 @@ export class GameService {
     if (!winner && !boardFull) {
       this.updateNextPlayer();
     }
+    else{
+
+      this.nextPlayer = null;
+    }
   }
 
   public updateNextPlayer(): void {
