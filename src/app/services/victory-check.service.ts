@@ -21,29 +21,29 @@ export class VictoryCheckService {
   private checkDiagonals(board: Player[][]): Type {
     let winner: Type = null;
     for (
-      let colIndex = 0;
-      colIndex < board.length - this.victoryCondition;
-      ++colIndex
+      let colOffset = 0;
+      colOffset <= board.length - this.victoryCondition;
+      ++colOffset
     ) {
       for (
-        let rowIndex = 0;
-        rowIndex < board[0].length - this.victoryCondition;
-        ++rowIndex
+        let rowOffset = 0;
+        rowOffset <= board[0].length - this.victoryCondition;
+        ++rowOffset
       ) {
         {
           const testArray: Player[] = [];
-          testArray.push(board[0 + colIndex][0 + rowIndex]);
-          testArray.push(board[1 + colIndex][1 + rowIndex]);
-          testArray.push(board[2 + colIndex][2 + rowIndex]);
-          testArray.push(board[3 + colIndex][3 + rowIndex]);
+          testArray.push(board[0 + colOffset][0 + rowOffset]);
+          testArray.push(board[1 + colOffset][1 + rowOffset]);
+          testArray.push(board[2 + colOffset][2 + rowOffset]);
+          testArray.push(board[3 + colOffset][3 + rowOffset]);
           winner = this.verifyTestArray(testArray) || winner;
         }
         {
           const testArray: Player[] = [];
-          testArray.push(board[0 + colIndex][3 + rowIndex]);
-          testArray.push(board[1 + colIndex][2 + rowIndex]);
-          testArray.push(board[2 + colIndex][1 + rowIndex]);
-          testArray.push(board[3 + colIndex][0 + rowIndex]);
+          testArray.push(board[0 + colOffset][3 + rowOffset]);
+          testArray.push(board[1 + colOffset][2 + rowOffset]);
+          testArray.push(board[2 + colOffset][1 + rowOffset]);
+          testArray.push(board[3 + colOffset][0 + rowOffset]);
           winner = this.verifyTestArray(testArray) || winner;
         }
       }
@@ -64,7 +64,6 @@ export class VictoryCheckService {
           rowIndex + this.victoryCondition
         );
         winner = this.verifyTestArray(testArray) || winner;
-
       }
     }
     return winner;

@@ -43,8 +43,6 @@ export class GameService {
 
   public checkWinner(): Type | null {
     const winner =  this.victoryCheckService.check( this.board );
-    console.log("Winner = " ,winner);
-
     return winner;
   }
 
