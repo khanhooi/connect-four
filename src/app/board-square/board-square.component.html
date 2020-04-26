@@ -1,3 +1,12 @@
-<div class="square" (click)='click()'>
-  <span class="overlay" [class.red]="player.type === 1" [class.yellow]="player.type === 2" [class.victory]="player.isFourInARow===true"></span>
+<div class="wrapper">
+  <div class="square" (click)="click()">
+    <span
+      class="overlay"
+      [class.red]="player.type === 1"
+      [class.yellow]="player.type === 2"
+      [class.victory]="player.isFourInARow === true"
+    ></span>
+  </div>
+
+  <div class="shell"></div>
 </div>
