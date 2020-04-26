@@ -1,3 +1,4 @@
+import { VictoryCheckService } from './victory-check.service';
 import { Player, Type } from '../player';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
@@ -9,7 +10,7 @@ export class GameService {
   private nextPlayer: Type;
   board: Player[][];
 
-  constructor() {
+  constructor(private victoryCheckService: VictoryCheckService) {
     this.newGame();
   }
 
@@ -41,11 +42,10 @@ export class GameService {
   }
 
   public checkWinner(): Type | null {
-    this.board[0][0].isFourInARow = true;
-    this.board[1][1].isFourInARow = true;
-    this.board[2][2].isFourInARow = true;
-    this.board[3][3].isFourInARow = true;
-    return null;
+    const winner =  this.victoryCheckService.check( this.board );
+    console.log("Winner = " ,winner);
+
+    return winner;
   }
 
   private isBoardFull(): boolean {
