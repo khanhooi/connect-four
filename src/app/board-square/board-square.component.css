@@ -16,13 +16,13 @@
 
 
 .overlay {
-  height: 100%;
-  width: 100%;
-  /* padding: 20%; */
+  height: 70%;
+  width: 70%;
+  margin: 15%;
   border-width: 0%;
   border-radius: 50%;
   display: inline-block;
-  /* box-shadow: inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8); */
+  box-shadow: inset 3px -3px 12px rgba(0, 0, 0, 1);
   transition: 0.2s;
 }
 
@@ -39,15 +39,15 @@
 
 @keyframes victoryAnimation {
   0% {
-    box-shadow: 0pt 0pt 10pt gold,inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8);
+    box-shadow: inset 3px -3px 12px rgba(0, 0, 0, 1);
   }
   45% {
-    box-shadow: 0pt 0pt 10pt white, inset 0pt 0pt 30pt white;
+    box-shadow: inset 0px 0px 20px white;
   }
   55% {
-    box-shadow: 0pt 0pt 10pt white, inset 0pt 0pt 30pt white;
+    box-shadow: inset 0px 0px 20px white;
   }
   100% {
-    box-shadow: 0pt 0pt 10pt gold,inset 2pt 2pt 10pt rgba(0, 0, 0, 0.8)
+    box-shadow: inset 3px -3px 12px rgba(0, 0, 0, 1)
   }
 }
