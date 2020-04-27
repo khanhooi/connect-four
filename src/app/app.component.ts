@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private gameService: GameService) {}
+  constructor() {}
   title = 'connect-four';
-  newGame(): void { this.gameService.newGame(); }
 }

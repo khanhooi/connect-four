@@ -1,0 +1,15 @@
+.wrapper{
+  width: 100vw;
+
+}
+
+.table {
+  width: 100%;
+
+  table-layout: fixed;
+}
+
+.column{
+  /* table-layout: fixed; */
+  width: 100%;
+}

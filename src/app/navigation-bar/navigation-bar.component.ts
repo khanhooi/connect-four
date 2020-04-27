@@ -1,3 +1,4 @@
+import { GameService } from './../services/game.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
+  }
+
+  newGame():void {
+    this.gameService.newGame();
   }
 
 }

@@ -1,3 +1,7 @@
-<td *ngFor="let column of gameService.board; let x=index">
-  <app-board-column [x]="x" [column]="column"></app-board-column>
-</td>
+<div class="wrapper">
+  <table class="table">
+    <td class="column" *ngFor="let column of gameService.board; let x=index">
+      <app-board-column style="width: 100%;" [x]="x" [column]="column"></app-board-column>
+    </td>
+</table>
+</div>

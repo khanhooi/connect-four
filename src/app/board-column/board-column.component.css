@@ -1,11 +1,25 @@
 .background {
   /* background-color: rgb(9, 100, 247); */
-
+  padding: 0;
   transition: 0.3s;
+  width: 100%;
 }
 
+.fillWidth{
+  width: 100%;
+}
+padding: 20%;
+
+.row{
+  width: 100%;
+}
+.container {
+  padding: 0;
+  width: 100%;
+}
 .container:hover .background{
   background-color: rgb(86, 149, 251);
+  padding: 0;
 }
 
 .container:hover .halfCircle{
@@ -13,8 +27,7 @@
 }
 
 .halfCircle{
-  height:25pt;
-  width:50pt;
+  width:100%;
   border-radius: 90pt 90pt 0 0;
   border-width: 1pt;
 
@@ -22,6 +35,7 @@
   border-bottom: 0;
   margin: auto;
   visibility: hidden;
+  padding-bottom: 50%;
 }
 
 .red{
