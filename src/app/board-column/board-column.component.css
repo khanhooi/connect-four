@@ -8,32 +8,38 @@
 .fillWidth{
   width: 100%;
 }
-padding: 20%;
 
-.row{
+.myRow{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+}
+
+.boardColumn {
+  padding: 0%;
+  margin: 0%;
   width: 100%;
 }
-.container {
-  padding: 0;
-  width: 100%;
-}
-.container:hover .background{
+.boardColumn:hover .background{
   background-color: rgb(86, 149, 251);
   padding: 0;
 }
 
-.container:hover .halfCircle{
+.boardColumn:hover .halfCircle{
   visibility: visible;
 }
 
 .halfCircle{
   width:100%;
-  border-radius: 90pt 90pt 0 0;
-  border-width: 1pt;
+  border-radius: 90% 90% 0 0;
+  border-width: 1%;
+  padding: 0;
 
   border-style: hidden;
   border-bottom: 0;
-  margin: auto;
   visibility: hidden;
   padding-bottom: 50%;
 }

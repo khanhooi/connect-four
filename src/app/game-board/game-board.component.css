@@ -1,14 +1,18 @@
 .wrapper{
-  width: 80%;
+  width: 50%;
+  margin: 20pt;
 
 }
 
 .table {
   width: 100%;
   table-layout: fixed;
+  margin: 0%;
 }
 
-.column{
-  /* table-layout: fixed; */
+.boardColumn{
+  table-layout: fixed;
+  margin: 0%;
+  padding: 0%;
   width: 100%;
 }

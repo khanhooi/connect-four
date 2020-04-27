@@ -1,4 +1,4 @@
-<div class="container">
+<div class="boardColumn">
   <div
     class="halfCircle"
     [class.red]="gameService.getPlayer() === 1"
@@ -8,7 +8,7 @@
   <div class="background">
     <tr
       *ngFor="let square of column.slice().reverse(); let y = index"
-      (click)="click()" class="row"
+      (click)="click()" class="myRow fillWidth"
     >
       <app-board-square class="fillWidth" [player]="square" [x]="x" [y]="y"></app-board-square>
     </tr>
