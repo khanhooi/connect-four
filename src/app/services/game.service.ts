@@ -1,3 +1,4 @@
+import { GameServiceSettings } from './../gameSettings';
 import { VictoryCheckService } from './victory-check.service';
 import { Player, Type } from '../player';
 import { Injectable } from '@angular/core';
@@ -6,12 +7,14 @@ import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+
 export class GameService {
   private nextPlayer: Type;
+  private settings: GameServiceSettings;
   board: Player[][];
 
   constructor(private victoryCheckService: VictoryCheckService) {
-    this.newGame();
+    this.newGame({});
   }
 
   public getPlayer(): Type {
@@ -40,9 +43,13 @@ export class GameService {
         ? Player.Type.red
         : Player.Type.yellow;
   }
-  public newGame(): void {
+  public newGame(settings: GameServiceSettings): void {
     this.nextPlayer = Player.Type.yellow;
     this.board = this.blankBoard();
+  }
+
+  public restart(): void {
+    this.newGame( this.settings );
   }
 
   public checkWinner(): Type | null {
