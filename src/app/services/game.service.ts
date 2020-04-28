@@ -1,3 +1,4 @@
+import { PlayerAiService } from './player-ai.service';
 import { GameBoard } from './game-board';
 import { GameSettings, GameType } from './game-settings';
 import { VictoryCheckService } from './victory-check.service';
@@ -7,20 +8,17 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-
 export class GameService {
-
-
-
   private nextToken: TokenColour;
   private players: Players;
-
-
   private settings: GameSettings;
   board: GameBoard;
 
-  constructor(private victoryCheckService: VictoryCheckService) {
-    this.newGame({ gameType: GameType.playerVplayer } );
+  constructor(
+    private victoryCheckService: VictoryCheckService,
+    private playerAiService: PlayerAiService
+  ) {
+    this.newGame({ gameType: GameType.playerVplayer });
   }
 
   public getTokenColour(): TokenColour {
@@ -28,43 +26,46 @@ export class GameService {
   }
 
   public updateColumn(colIndex: number) {
-    if ( this.players.getCurrent() !==  PlayerType.human ) { return; }
-    this.updateColumnImpl( colIndex );
+    if (this.players.getCurrent() !== PlayerType.human) {
+      return;
+    }
+    this.updateColumnImpl(colIndex);
   }
 
   private updateColumnImpl(colIndex: number) {
-    GameBoard.addToColumn( this.board, colIndex , this.getTokenColour( ));
+    GameBoard.addToColumn(this.board, colIndex, this.getTokenColour());
     const winner = this.checkWinner();
-    const boardFull = GameBoard.isBoardFull( this.board );
+    const boardFull = GameBoard.isBoardFull(this.board);
     if (!winner && !boardFull) {
       this.updateNextPlayer();
-    }
-    else{
+    } else {
       this.nextToken = null;
     }
   }
 
   public updateNextPlayer(): void {
     this.nextToken =
-      this.nextToken === Unit.Type.yellow
-        ? Unit.Type.red
-        : Unit.Type.yellow;
+      this.nextToken === Unit.Type.yellow ? Unit.Type.red : Unit.Type.yellow;
     this.players.switch();
+
+    if (this.players.getCurrent() === PlayerType.computer) {
+      this.playerAiService
+        .nextMove(this.board, this.getTokenColour())
+        .subscribe((col) => this.updateColumnImpl(col));
+    }
   }
   public newGame(settings: GameSettings): void {
-
     this.settings = settings;
 
     switch (settings.gameType) {
       case GameType.playerVplayer:
-        this.players = new Players( PlayerType.human, PlayerType.human );
+        this.players = new Players(PlayerType.human, PlayerType.human);
         break;
       case GameType.playerVai:
       default:
-        this.players = new Players( PlayerType.human, PlayerType.computer );
+        this.players = new Players(PlayerType.human, PlayerType.computer);
         break;
     }
-
 
     this.nextToken = Unit.Type.yellow;
 
@@ -72,11 +73,11 @@ export class GameService {
   }
 
   public restart(): void {
-    this.newGame( this.settings );
+    this.newGame(this.settings);
   }
 
   public checkWinner(): TokenColour | null {
-    const winner =  this.victoryCheckService.check( this.board );
+    const winner = this.victoryCheckService.check(this.board);
     return winner;
   }
 }
