@@ -42,6 +42,10 @@ export namespace GameBoard{
     });
     gameBoard[colIndex][rowIndex].type = token;
   }
+
+  export function copy( gameBoard: GameBoard): GameBoard {
+    return JSON.parse( JSON.stringify(gameBoard) );
+  }
 }
 
 
