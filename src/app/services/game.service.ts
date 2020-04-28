@@ -1,3 +1,4 @@
+import { GameBoard } from './game-board';
 import { GameSettings, GameType } from './game-settings';
 import { VictoryCheckService } from './victory-check.service';
 import { Players, Unit, TokenColour, PlayerType } from './Unit';
@@ -16,7 +17,7 @@ export class GameService {
 
 
   private settings: GameSettings;
-  board: Unit[][];
+  board: GameBoard;
 
   constructor(private victoryCheckService: VictoryCheckService) {
     this.newGame({ gameType: GameType.playerVplayer } );
@@ -37,7 +38,7 @@ export class GameService {
     }
     this.board[x][y].type = this.getTokenColour();
     const winner = this.checkWinner();
-    const boardFull = this.isBoardFull();
+    const boardFull = GameBoard.isBoardFull( this.board );
     if (!winner && !boardFull) {
       this.updateNextPlayer();
     }
@@ -69,7 +70,8 @@ export class GameService {
 
 
     this.nextToken = Unit.Type.yellow;
-    this.board = this.blankBoard();
+
+    this.board = GameBoard.blankBoard();
   }
 
   public restart(): void {
@@ -79,23 +81,5 @@ export class GameService {
   public checkWinner(): TokenColour | null {
     const winner =  this.victoryCheckService.check( this.board );
     return winner;
-  }
-
-  private isBoardFull(): boolean {
-    return this.board.every((column) =>
-      column.every((player) => player.type != null)
-    );
-  }
-
-  private blankBoard(): Unit[][] {
-    const board = [];
-    for (let x = 0; x < 7; ++x) {
-      const column: Unit[] = [];
-      for (let y = 0; y < 6; ++y) {
-        column.push(new Unit());
-      }
-      board.push(column);
-    }
-    return board;
   }
 }
