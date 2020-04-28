@@ -3,6 +3,12 @@ export enum TokenColour {
   red= 1,
   yellow= 2
 }
+
+export enum PlayerType {
+  human= 0,
+  computer= 1
+}
+
 export class Unit {
   static readonly Type = TokenColour;
   public isFourInARow: boolean;

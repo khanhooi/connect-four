@@ -1,30 +1,41 @@
 <div class="menu-container">
   <h2>Game Settings</h2>
+  <hr />
 
-  <div class="radio">
-    <label>
-        <input type="radio"
-               value="1"
-               [checked]="myVar === 1"
-               id="point1"
-               (change)="onSelectionChange(1)"
-               name="ProfitCode"><small>Player vs Player</small>
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label
+      [ngClass]="{ 'btn-primary': myVar == '1', 'btn-secondary': myVar != '1' }"
+      class="btn"
+    >
+      <input
+        type="radio"
+        autocomplete="off"
+        value="1"
+        [checked]="myVar === 1"
+        (change)="onSelectionChange(1)"
+      />
+      Player vs Player
     </label>
-    </div>
-    <div class="radio">
-        <label>
-            <input type="radio"
-                   value="2"
-                   [checked]="myVar === 2"
-                   id="point2"
-                   (change)="onSelectionChange(2)"
-                   name="ProfitCode"><small>Player vs AI</small>
-        </label>
-    </div>
-  <hr>
-  this is the value of my var {{myVar}};
-  <hr>
+    <label
+      [ngClass]="{ 'btn-primary': myVar == '2', 'btn-secondary': myVar != '2' }"
+      class="btn"
+    >
+      <input
+        type="radio"
+        autocomplete="off"
+        value="2"
+        [checked]="myVar === 2"
+        (change)="onSelectionChange(2)"
+      />
+      Player vs AI
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" id="option3" autocomplete="off" /> Player vs Online
+    </label>
+  </div>
+  <hr />
+  this is the value of my var {{ myVar }};
+  <hr />
 
-  <a href="game" class="btn btn-primary">Start Game!</a>
+  <button class="btn btn-primary" (click)="click()">Start Game!</button>
 </div>
-
