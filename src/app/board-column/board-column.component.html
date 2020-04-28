@@ -1,14 +1,13 @@
 <div class="boardColumn">
-  <div
-    class="indication-token"
-    [class.columnFull]="columnFull() === true"
-  >
-
-  <svg width="100%" viewBox="0 0 100 100"     [class.filter-red]="gameService.getPlayer() === 1"
-  [class.filter-yellow]="gameService.getPlayer() === 2">
-    <circle cx="50" cy="80" r="35" fill="black" />
-</svg>
-
+  <div class="indication-token" [class.columnFull]="columnFull() === true">
+    <svg
+      width="100%"
+      viewBox="0 0 100 100"
+      [class.filter-red]="gameService.getPlayer() === 1"
+      [class.filter-yellow]="gameService.getPlayer() === 2"
+    >
+      <circle cx="50" cy="80" r="35" fill="black" />
+    </svg>
   </div>
   <div class="background">
     <tr

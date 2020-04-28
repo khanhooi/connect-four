@@ -25,7 +25,7 @@ export class GameBoardComponent implements OnInit {
 
       // square size is number of rows + 1 because there is the equivalent of an extra row for the
       // hint token.
-      height = squareSize * ( numberOfRows + 2 );
+      height = squareSize * ( numberOfRows + 1 );
     } while (height > containerOffsetHeight);
     return squareSize * numberOfColumns;
   }
