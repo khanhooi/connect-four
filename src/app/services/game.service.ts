@@ -1,6 +1,6 @@
 import { GameSettings, GameType } from '../game-settings';
 import { VictoryCheckService } from './victory-check.service';
-import { Player, TokenColour } from '../player';
+import { Unit, TokenColour } from '../player';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class GameService {
   private nextToken: TokenColour;
   private settings: GameSettings;
-  board: Player[][];
+  board: Unit[][];
 
   constructor(private victoryCheckService: VictoryCheckService) {
     this.newGame({ gameType: GameType.playerVplayer } );
@@ -38,12 +38,12 @@ export class GameService {
 
   public updateNextPlayer(): void {
     this.nextToken =
-      this.nextToken === Player.Type.yellow
-        ? Player.Type.red
-        : Player.Type.yellow;
+      this.nextToken === Unit.Type.yellow
+        ? Unit.Type.red
+        : Unit.Type.yellow;
   }
   public newGame(settings: GameSettings): void {
-    this.nextToken = Player.Type.yellow;
+    this.nextToken = Unit.Type.yellow;
     this.board = this.blankBoard();
   }
 
@@ -62,12 +62,12 @@ export class GameService {
     );
   }
 
-  private blankBoard(): Player[][] {
+  private blankBoard(): Unit[][] {
     const board = [];
     for (let x = 0; x < 7; ++x) {
-      const column: Player[] = [];
+      const column: Unit[] = [];
       for (let y = 0; y < 6; ++y) {
-        column.push(new Player());
+        column.push(new Unit());
       }
       board.push(column);
     }

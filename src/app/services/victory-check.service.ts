@@ -1,4 +1,4 @@
-import { Player, TokenColour } from './../player';
+import { Unit, TokenColour } from './../player';
 import { Injectable } from '@angular/core';
 import { empty } from 'rxjs';
 
@@ -10,7 +10,7 @@ export class VictoryCheckService {
 
   readonly victoryCondition: number = 4;
 
-  check(board: Player[][]): TokenColour {
+  check(board: Unit[][]): TokenColour {
     let winningPlayer: TokenColour = null;
     winningPlayer = this.checkColumns(board);
     winningPlayer = this.checkRows(board) || winningPlayer;
@@ -18,7 +18,7 @@ export class VictoryCheckService {
     return winningPlayer;
   }
 
-  private checkDiagonals(board: Player[][]): TokenColour {
+  private checkDiagonals(board: Unit[][]): TokenColour {
     let winner: TokenColour = null;
     for (
       let colOffset = 0;
@@ -31,7 +31,7 @@ export class VictoryCheckService {
         ++rowOffset
       ) {
         {
-          const testArray: Player[] = [];
+          const testArray: Unit[] = [];
           testArray.push(board[0 + colOffset][0 + rowOffset]);
           testArray.push(board[1 + colOffset][1 + rowOffset]);
           testArray.push(board[2 + colOffset][2 + rowOffset]);
@@ -39,7 +39,7 @@ export class VictoryCheckService {
           winner = this.verifyTestArray(testArray) || winner;
         }
         {
-          const testArray: Player[] = [];
+          const testArray: Unit[] = [];
           testArray.push(board[0 + colOffset][3 + rowOffset]);
           testArray.push(board[1 + colOffset][2 + rowOffset]);
           testArray.push(board[2 + colOffset][1 + rowOffset]);
@@ -51,7 +51,7 @@ export class VictoryCheckService {
     return winner;
   }
 
-  private checkColumns(board: Player[][]): TokenColour {
+  private checkColumns(board: Unit[][]): TokenColour {
     let winner: TokenColour = null;
     for (const column of board) {
       for (
@@ -59,7 +59,7 @@ export class VictoryCheckService {
         rowIndex < column.length - this.victoryCondition;
         ++rowIndex
       ) {
-        const testArray: Player[] = column.slice(
+        const testArray: Unit[] = column.slice(
           rowIndex,
           rowIndex + this.victoryCondition
         );
@@ -69,10 +69,10 @@ export class VictoryCheckService {
     return winner;
   }
 
-  private checkRows(frame: Player[][]): TokenColour {
+  private checkRows(frame: Unit[][]): TokenColour {
     let winner: TokenColour = null;
     for (let rowIndex = 0; rowIndex < frame[0].length; ++rowIndex) {
-      const testArray: Player[] = [];
+      const testArray: Unit[] = [];
       for (const column of frame) {
         testArray.push(column[rowIndex]);
         if (testArray.length === this.victoryCondition) {
@@ -84,7 +84,7 @@ export class VictoryCheckService {
     return winner;
   }
 
-  private verifyTestArray(testArray: Player[]): TokenColour {
+  private verifyTestArray(testArray: Unit[]): TokenColour {
     if (testArray.every((val, i, arr) => val.type === arr[0].type)) {
       if (testArray[0].type != null) {
         testArray.forEach((player) => {

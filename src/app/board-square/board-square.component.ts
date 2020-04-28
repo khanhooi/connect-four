@@ -1,4 +1,4 @@
-import { Player } from './../player';
+import { Unit } from './../player';
 import { Component, OnInit, Input } from '@angular/core';
 import { GameService } from '../services/game.service';
 @Component({
@@ -10,7 +10,7 @@ export class BoardSquareComponent implements OnInit {
 
   constructor(private game: GameService) { }
 
-  @Input() player: Player;
+  @Input() player: Unit;
   @Input() x: number;
   @Input() y: number;
 

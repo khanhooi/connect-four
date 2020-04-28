@@ -1,5 +1,5 @@
 import { GameService } from '../services/game.service';
-import { Player } from './../player';
+import { Unit } from './../player';
 import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-board-column',
@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BoardColumnComponent implements OnInit {
 
   @Input() x: number;
-  @Input() column: Player[];
+  @Input() column: Unit[];
 
   constructor(public gameService: GameService) { }
 
