@@ -1,6 +1,6 @@
 import { GameSettings, GameType } from '../game-settings';
 import { VictoryCheckService } from './victory-check.service';
-import { Unit, TokenColour } from '../player';
+import { Unit, TokenColour } from '../Unit';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,6 +8,8 @@ import { Injectable } from '@angular/core';
 })
 
 export class GameService {
+
+
   private nextToken: TokenColour;
   private settings: GameSettings;
   board: Unit[][];

@@ -1,4 +1,4 @@
-import { Unit, TokenColour } from './../player';
+import { Unit, TokenColour } from '../Unit';
 import { Injectable } from '@angular/core';
 import { empty } from 'rxjs';
 
