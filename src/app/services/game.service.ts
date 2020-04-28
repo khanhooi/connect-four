@@ -1,8 +1,7 @@
-import { GameSettings } from '../game-settings';
+import { GameSettings, GameType } from '../game-settings';
 import { VictoryCheckService } from './victory-check.service';
 import { Player, Type } from '../player';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ export class GameService {
   board: Player[][];
 
   constructor(private victoryCheckService: VictoryCheckService) {
-    this.newGame({});
+    this.newGame({ gameType: GameType.playerVplayer } );
   }
 
   public getPlayer(): Type {
