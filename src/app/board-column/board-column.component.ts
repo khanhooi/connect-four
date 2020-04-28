@@ -1,5 +1,5 @@
 import { GameService } from '../services/game.service';
-import { Unit } from '../Unit';
+import { Unit } from '../services/Unit';
 import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-board-column',

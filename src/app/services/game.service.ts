@@ -1,6 +1,6 @@
-import { GameSettings, GameType } from '../game-settings';
+import { GameSettings, GameType } from './game-settings';
 import { VictoryCheckService } from './victory-check.service';
-import { Players, Unit, TokenColour, PlayerType } from '../Unit';
+import { Players, Unit, TokenColour, PlayerType } from './Unit';
 import { Injectable } from '@angular/core';
 
 @Injectable({

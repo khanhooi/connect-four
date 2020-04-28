@@ -1,4 +1,4 @@
-import { GameType, GameSettings } from './../game-settings';
+import { GameType, GameSettings } from '../services/game-settings';
 import { GameService } from './../services/game.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
