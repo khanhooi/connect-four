@@ -1,6 +1,8 @@
+import { GameBoard } from './../services/game-board';
 import { GameService } from '../services/game.service';
 import { Unit } from '../services/Unit';
 import { Component, OnInit, Input } from '@angular/core';
+import { GameColumn } from '../services/game-board';
 @Component({
   selector: 'app-board-column',
   templateUrl: './board-column.component.html',
@@ -9,24 +11,17 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BoardColumnComponent implements OnInit {
 
   @Input() x: number;
-  @Input() column: Unit[];
+  @Input() column: GameColumn;
 
   constructor(public gameService: GameService) { }
 
   ngOnInit(): void {}
 
   columnFull(): boolean {
-    return (this.column[this.column.length - 1].type ) ? true  : false;
+    return GameBoard.isColumnFull(this.column);
   }
 
   click(): void {
-    //@todo Move this to game.service
-    if ( this.columnFull() ) { return; }
-    let y = -1;
-    this.column.every(player => {
-      ++y;
-      return player.type;
-    });
-    this.gameService.updateSquare(this.x, y);
+    this.gameService.updateColumn(this.x, );
   }
 }

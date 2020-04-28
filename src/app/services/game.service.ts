@@ -27,16 +27,13 @@ export class GameService {
     return this.nextToken;
   }
 
-  public updateSquare(x: number, y: number) {
+  public updateColumn(colIndex: number) {
     if ( this.players.getCurrent() !==  PlayerType.human ) { return; }
-    this.updateSquareImpl( x, y);
+    this.updateColumnImpl( colIndex );
   }
 
-  private updateSquareImpl(x: number, y: number) {
-    if (this.board[x][y].type) {
-      throw new Error('bad');
-    }
-    this.board[x][y].type = this.getTokenColour();
+  private updateColumnImpl(colIndex: number) {
+    GameBoard.addToColumn( this.board, colIndex , this.getTokenColour( ));
     const winner = this.checkWinner();
     const boardFull = GameBoard.isBoardFull( this.board );
     if (!winner && !boardFull) {
