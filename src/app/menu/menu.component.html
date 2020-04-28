@@ -4,27 +4,27 @@
 
   <div class="btn-group btn-group-toggle" data-toggle="buttons">
     <label
-      [ngClass]="{ 'btn-primary': myVar == '1', 'btn-secondary': myVar != '1' }"
+      [ngClass]="{ 'btn-primary': settings.gameType.toString() == '1', 'btn-secondary': settings.gameType.toString() != '1' }"
       class="btn"
     >
       <input
         type="radio"
         autocomplete="off"
         value="1"
-        [checked]="myVar === 1"
+        [checked]="settings.gameType === 1"
         (change)="onSelectionChange(1)"
       />
       Player vs Player
     </label>
     <label
-      [ngClass]="{ 'btn-primary': myVar == '2', 'btn-secondary': myVar != '2' }"
+      [ngClass]="{ 'btn-primary': settings.gameType.toString() == '2', 'btn-secondary': settings.gameType.toString() != '2' }"
       class="btn"
     >
       <input
         type="radio"
         autocomplete="off"
         value="2"
-        [checked]="myVar === 2"
+        [checked]="settings.gameType === 2"
         (change)="onSelectionChange(2)"
       />
       Player vs AI
@@ -34,8 +34,8 @@
     </label>
   </div>
   <hr />
-  this is the value of my var {{ myVar }};
+  this is the value of my var {{ settings.gameType }};
   <hr />
 
-  <button class="btn btn-primary" (click)="click()">Start Game!</button>
+  <button class="btn btn-primary" (click)="startGame()">Start Game!</button>
 </div>

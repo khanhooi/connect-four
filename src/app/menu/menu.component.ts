@@ -13,17 +13,19 @@ export class MenuComponent implements OnInit {
   constructor(private gameService: GameService, private router: Router) { }
 
   public myVar: any = 0;
-  settings: GameSettings;
+  public settings: GameSettings;
 
   ngOnInit(): void {
+    this.settings = new GameSettings();
+    this.settings.gameType= GameType.playerVplayer;
   }
 
   onSelectionChange(entry): void {
-    this.myVar = entry;
+    this.settings.gameType = entry;
 }
 
-click():void {
-  console.log("pressd new game.");
+startGame():void {
+  this.gameService.newGame(this.settings);
   this.router.navigateByUrl('game');
 }
 }
