@@ -1,5 +1,9 @@
+* {
+  padding: 0%;
+  margin: 0%;
+}
+
 .background {
-  /* background-color: rgb(9, 100, 247); */
   padding: 0;
   transition: 0.3s;
   width: 100%;
@@ -10,11 +14,11 @@
 }
 
 .myRow{
-  display: -webkit-box;
-  display: -ms-flexbox;
+
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  table-layout: fixed;
 
 }
 
@@ -34,7 +38,6 @@
 
 .indication-token{
   visibility: hidden;
-  outline: black;
 }
 
 .filter-red{

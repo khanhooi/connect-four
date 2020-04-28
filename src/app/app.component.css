@@ -1,0 +1,47 @@
+.connect-four-app {
+  padding: 2%;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.2);
+  border-style: solid;
+  border-color: black;
+  background-color: ivory;
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-areas:
+  'header'
+  'header'
+  'main'
+  'main'
+  'main'
+  'main'
+  'main'
+  'main'
+  'footer';
+}
+
+.area-header { grid-area: header; }
+.area-main { grid-area: main; height: 100%; }
+.area-footer { grid-area: footer; }
+
+.background {
+  background-image: url("../assets/Seamless-Fruit-Pattern.svg");
+  background-repeat: repeat;
+
+  padding: 5%;
+  width: 100vw;
+  height: 100vh;
+  background-color: lightcoral;
+}
+
+@media only screen and (max-width: 900px) {
+.background{
+  padding: 0%;
+}
+.connect-four-app{
+  width: 100vw;
+  height: 100vh;
+  border-style: none;
+  box-shadow: none;
+}
+}

@@ -1,18 +1,21 @@
-.wrapper{
-  width: 50%;
-  margin: 20pt;
 
-}
 
 .table {
-  width: 100%;
+  display: table;
   table-layout: fixed;
-  margin: 0%;
+  margin: auto;
+  margin-bottom: 0%;
+  height: 100%;
 }
 
 .boardColumn{
-  table-layout: fixed;
   margin: 0%;
   padding: 0%;
-  width: 100%;
 }
+
+.boardContainer{
+  height: 100%;
+  width: 100%;
+  overflow:hidden;       /**/
+}
+
