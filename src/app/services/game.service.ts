@@ -1,6 +1,6 @@
 import { GameSettings, GameType } from '../game-settings';
 import { VictoryCheckService } from './victory-check.service';
-import { Unit, TokenColour } from '../Unit';
+import { Players, Unit, TokenColour, PlayerType } from '../Unit';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -10,7 +10,11 @@ import { Injectable } from '@angular/core';
 export class GameService {
 
 
+
   private nextToken: TokenColour;
+  private players: Players;
+
+
   private settings: GameSettings;
   board: Unit[][];
 
@@ -23,6 +27,11 @@ export class GameService {
   }
 
   public updateSquare(x: number, y: number) {
+    if ( this.players.getCurrent() !==  PlayerType.human ) { return; }
+    this.updateSquareImpl( x, y);
+  }
+
+  private updateSquareImpl(x: number, y: number) {
     if (this.board[x][y].type) {
       throw new Error('bad');
     }
@@ -33,7 +42,6 @@ export class GameService {
       this.updateNextPlayer();
     }
     else{
-
       this.nextToken = null;
     }
   }
@@ -43,8 +51,23 @@ export class GameService {
       this.nextToken === Unit.Type.yellow
         ? Unit.Type.red
         : Unit.Type.yellow;
+    this.players.switch();
   }
   public newGame(settings: GameSettings): void {
+
+    this.settings = settings;
+
+    switch (settings.gameType) {
+      case GameType.playerVplayer:
+        this.players = new Players( PlayerType.human, PlayerType.human );
+        break;
+      case GameType.playerVai:
+      default:
+        this.players = new Players( PlayerType.human, PlayerType.computer );
+        break;
+    }
+
+
     this.nextToken = Unit.Type.yellow;
     this.board = this.blankBoard();
   }

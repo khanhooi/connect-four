@@ -21,7 +21,6 @@ export class GameBoardComponent implements OnInit {
     let height: number;
     do {
       squareSize--;
-      console.log(`something is happening: ${squareSize}`);
 
       // square size is number of rows + 1 because there is the equivalent of an extra row for the
       // hint token.

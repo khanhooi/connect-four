@@ -20,6 +20,7 @@ export class BoardColumnComponent implements OnInit {
   }
 
   click(): void {
+    //@todo Move this to game.service
     if ( this.columnFull() ) { return; }
     let y = -1;
     this.column.every(player => {

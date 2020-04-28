@@ -9,11 +9,35 @@ export enum PlayerType {
   computer= 1
 }
 
+export class Players {
+  constructor( first: PlayerType, second: PlayerType ){
+    this.second = second;
+    this.first = first;
+    this.isFirstPlayer = true;
+  }
+
+  private isFirstPlayer: boolean;
+
+
+
+  readonly first: PlayerType;
+  readonly second: PlayerType;
+
+  public getCurrent(): PlayerType {
+    return this.isFirstPlayer ? this.first : this.second;
+  }
+
+  public switch(): void{
+    this.isFirstPlayer = !this.isFirstPlayer;
+  }
+
+}
+
 export class Unit {
   static readonly Type = TokenColour;
   public isFourInARow: boolean;
   public type: TokenColour;
-  Player() {
+  constructor() {
     this.type = null;
     this.isFourInARow = false;
 
