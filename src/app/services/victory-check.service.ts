@@ -1,4 +1,4 @@
-import { Player, Type } from './../player';
+import { Player, TokenColour } from './../player';
 import { Injectable } from '@angular/core';
 import { empty } from 'rxjs';
 
@@ -10,16 +10,16 @@ export class VictoryCheckService {
 
   readonly victoryCondition: number = 4;
 
-  check(board: Player[][]): Type {
-    let winningPlayer: Type = null;
+  check(board: Player[][]): TokenColour {
+    let winningPlayer: TokenColour = null;
     winningPlayer = this.checkColumns(board);
     winningPlayer = this.checkRows(board) || winningPlayer;
     winningPlayer = this.checkDiagonals(board) || winningPlayer;
     return winningPlayer;
   }
 
-  private checkDiagonals(board: Player[][]): Type {
-    let winner: Type = null;
+  private checkDiagonals(board: Player[][]): TokenColour {
+    let winner: TokenColour = null;
     for (
       let colOffset = 0;
       colOffset <= board.length - this.victoryCondition;
@@ -51,8 +51,8 @@ export class VictoryCheckService {
     return winner;
   }
 
-  private checkColumns(board: Player[][]): Type {
-    let winner: Type = null;
+  private checkColumns(board: Player[][]): TokenColour {
+    let winner: TokenColour = null;
     for (const column of board) {
       for (
         let rowIndex = 0;
@@ -69,8 +69,8 @@ export class VictoryCheckService {
     return winner;
   }
 
-  private checkRows(frame: Player[][]): Type {
-    let winner: Type = null;
+  private checkRows(frame: Player[][]): TokenColour {
+    let winner: TokenColour = null;
     for (let rowIndex = 0; rowIndex < frame[0].length; ++rowIndex) {
       const testArray: Player[] = [];
       for (const column of frame) {
@@ -84,7 +84,7 @@ export class VictoryCheckService {
     return winner;
   }
 
-  private verifyTestArray(testArray: Player[]): Type {
+  private verifyTestArray(testArray: Player[]): TokenColour {
     if (testArray.every((val, i, arr) => val.type === arr[0].type)) {
       if (testArray[0].type != null) {
         testArray.forEach((player) => {

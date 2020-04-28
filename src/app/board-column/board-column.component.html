@@ -3,8 +3,8 @@
     <svg
       width="100%"
       viewBox="0 0 100 100"
-      [class.filter-red]="gameService.getPlayer() === 1"
-      [class.filter-yellow]="gameService.getPlayer() === 2"
+      [class.filter-red]="gameService.getTokenColour() === 1"
+      [class.filter-yellow]="gameService.getTokenColour() === 2"
     >
       <circle cx="50" cy="80" r="35" fill="black" />
     </svg>

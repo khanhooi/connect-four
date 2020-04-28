@@ -1,6 +1,6 @@
 import { GameSettings, GameType } from '../game-settings';
 import { VictoryCheckService } from './victory-check.service';
-import { Player, Type } from '../player';
+import { Player, TokenColour } from '../player';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 
 export class GameService {
-  private nextPlayer: Type;
+  private nextToken: TokenColour;
   private settings: GameSettings;
   board: Player[][];
 
@@ -16,15 +16,15 @@ export class GameService {
     this.newGame({ gameType: GameType.playerVplayer } );
   }
 
-  public getPlayer(): Type {
-    return this.nextPlayer;
+  public getTokenColour(): TokenColour {
+    return this.nextToken;
   }
 
   public updateSquare(x: number, y: number) {
     if (this.board[x][y].type) {
       throw new Error('bad');
     }
-    this.board[x][y].type = this.getPlayer();
+    this.board[x][y].type = this.getTokenColour();
     const winner = this.checkWinner();
     const boardFull = this.isBoardFull();
     if (!winner && !boardFull) {
@@ -32,18 +32,18 @@ export class GameService {
     }
     else{
 
-      this.nextPlayer = null;
+      this.nextToken = null;
     }
   }
 
   public updateNextPlayer(): void {
-    this.nextPlayer =
-      this.nextPlayer === Player.Type.yellow
+    this.nextToken =
+      this.nextToken === Player.Type.yellow
         ? Player.Type.red
         : Player.Type.yellow;
   }
   public newGame(settings: GameSettings): void {
-    this.nextPlayer = Player.Type.yellow;
+    this.nextToken = Player.Type.yellow;
     this.board = this.blankBoard();
   }
 
@@ -51,7 +51,7 @@ export class GameService {
     this.newGame( this.settings );
   }
 
-  public checkWinner(): Type | null {
+  public checkWinner(): TokenColour | null {
     const winner =  this.victoryCheckService.check( this.board );
     return winner;
   }
