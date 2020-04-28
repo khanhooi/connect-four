@@ -1,3 +1,4 @@
+import { GameService } from './../services/game.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService) { }
+
+  public myVar: any = 0;
 
   ngOnInit(): void {
   }
 
+  onSelectionChange(entry): void {
+    this.myVar = entry;
+}
 }

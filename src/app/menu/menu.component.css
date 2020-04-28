@@ -1,0 +1,8 @@
+.menu-container{
+  margin: 5%;
+  padding: 5%;
+  align-content: center;
+  display: block;
+  background-color: lightsteelblue;
+  border-style: solid;
+}

@@ -1,3 +1,30 @@
+<div class="menu-container">
+  <h2>Game Settings</h2>
 
+  <div class="radio">
+    <label>
+        <input type="radio"
+               value="1"
+               [checked]="myVar === 1"
+               id="point1"
+               (change)="onSelectionChange(1)"
+               name="ProfitCode"><small>Player vs Player</small>
+    </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio"
+                   value="2"
+                   [checked]="myVar === 2"
+                   id="point2"
+                   (change)="onSelectionChange(2)"
+                   name="ProfitCode"><small>Player vs AI</small>
+        </label>
+    </div>
+  <hr>
+  this is the value of my var {{myVar}};
+  <hr>
 
-<a href="game" class="btn btn-primary">Start Game!</a>
+  <a href="game" class="btn btn-primary">Start Game!</a>
+</div>
+

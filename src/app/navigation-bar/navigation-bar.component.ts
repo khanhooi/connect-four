@@ -13,8 +13,8 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  newGame():void {
-    this.gameService.newGame();
+  restart():void {
+    this.gameService.restart();
   }
 
 }
