@@ -7,8 +7,6 @@ import { GameType } from './Unit';
 
 export class GameSettingsService {
 
-
-
   constructor() {
     this.gameType = GameType.playerVai;
   }

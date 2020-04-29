@@ -1,41 +1,51 @@
 <div class="menu-container">
-  <h2>Game Settings</h2>
-  <hr />
-
-  <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label
-      [ngClass]="{ 'btn-primary': settings.gameType.toString() == '1', 'btn-secondary': settings.gameType.toString() != '1' }"
-      class="btn"
-    >
-      <input
-        type="radio"
-        autocomplete="off"
-        value="1"
-        [checked]="settings.gameType === 1"
-        (change)="onSelectionChange(1)"
-      />
-      Player vs Player
-    </label>
-    <label
-      [ngClass]="{ 'btn-primary': settings.gameType.toString() == '2', 'btn-secondary': settings.gameType.toString() != '2' }"
-      class="btn"
-    >
-      <input
-        type="radio"
-        autocomplete="off"
-        value="2"
-        [checked]="settings.gameType === 2"
-        (change)="onSelectionChange(2)"
-      />
-      Player vs AI
-    </label>
-    <label class="btn btn-secondary">
-      <input type="radio" id="option3" autocomplete="off" /> Player vs Online
-    </label>
+  <div class="row justify-content-center">
+    <h2>Game Settings</h2>
   </div>
   <hr />
-  this is the value of my var {{ settings.gameType }};
+  <div class="row justify-content-center">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label
+        [ngClass]="{
+          'btn-primary': settings.gameType.toString() == '1',
+          'btn-secondary': settings.gameType.toString() != '1'
+        }"
+        class="btn"
+      >
+        <input
+          type="radio"
+          autocomplete="off"
+          value="1"
+          [checked]="settings.gameType === 1"
+          (change)="onSelectionChange(1)"
+        />
+        Player vs Player
+      </label>
+      <label
+        [ngClass]="{
+          'btn-primary': settings.gameType.toString() == '2',
+          'btn-secondary': settings.gameType.toString() != '2'
+        }"
+        class="btn"
+      >
+        <input
+          type="radio"
+          autocomplete="off"
+          value="2"
+          [checked]="settings.gameType === 2"
+          (change)="onSelectionChange(2)"
+        />
+        Player vs AI
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" id="option3" autocomplete="off" /> Player vs Online
+      </label>
+    </div>
+  </div>
   <hr />
-
-  <button class="btn btn-primary" (click)="startGame()">Start Game!</button>
+  <div class="row justify-content-center">
+    <button class="btn btn-primary btn-lg" (click)="startGame()">
+      Start Game!
+    </button>
+  </div>
 </div>

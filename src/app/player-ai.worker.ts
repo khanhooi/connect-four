@@ -3,35 +3,42 @@ import { PlayerType, TokenColour } from './services/Unit';
 import { GameBoard } from './services/game-board';
 import { VictoryCheck } from './services/victory-check';
 
+
+let messageData: any = null;
+
+
 addEventListener('message', ({ data }) => {
-  const ai: PlayerAi = new PlayerAi();
-  const gameBoard: GameBoard = data.Board;
-  const friendlyToken: TokenColour = data.Token;
-  const response = ai.move(gameBoard, friendlyToken);
-  postMessage(response);
+  if ( messageData === null ) {
+    messageData = data;
+  }
+  else{
+    throw new Error('Requested more than one AI move at once.');
+  }
 });
 
 class PlayerAi {
   private map: Map<string, [number, number]> = new Map();
 
-  private assessedVictory = 0;
-
-  readonly DEPTH = 3;
+  readonly DEPTH = 2;
 
   public move(gameBoard: GameBoard, tokenColour: TokenColour): number {
-    const columnIndex = this.search(gameBoard, tokenColour, this.DEPTH)[0];
+    const columnIndex = this.search(gameBoard, tokenColour, 0)[0];
     return columnIndex;
   }
   private assessVictory(
     gameBoard: GameBoard,
-    friendlyToken: TokenColour
+    friendlyToken: TokenColour,
+    depth: number
   ): number {
-    this.assessedVictory++;
-    let result = VictoryCheck.check(gameBoard);
+    const result = VictoryCheck.check(gameBoard);
     if (result) {
-      return result === friendlyToken ? 10 : -50;
+      if ( result === friendlyToken ) {
+        return depth === 0 ? +Infinity : 1;
+      } else {
+        return -5;
+      }
     }
-    return GameBoard.isBoardFull(gameBoard) ? -10 : null;
+    return GameBoard.isBoardFull(gameBoard) ? -1 : null;
   }
 
   private populatePossibilities(
@@ -60,12 +67,9 @@ class PlayerAi {
     depth: number
   ): [number, number] {
     if (this.map.has(JSON.stringify(gameBoard))) {
-      console.log('map Hit!');
-
       return this.map.get(JSON.stringify(gameBoard));
     }
-    if (depth <= 0) {
-      console.log('depth limit reached, returning.');
+    if (depth >= this.DEPTH ) {
       return [0, 0];
     }
     const friendlyToken = tokenColour;
@@ -84,7 +88,7 @@ class PlayerAi {
 
       GameBoard.addToColumn(newBoard, colIndex, friendlyToken);
 
-      let result: number = this.assessVictory(gameBoard, friendlyToken);
+      let result: number = this.assessVictory(gameBoard, friendlyToken, depth);
       if (result != null) {
         results[colIndex] = result;
         continue;
@@ -99,21 +103,19 @@ class PlayerAi {
       );
 
       for (const board of newAntagonistBoards) {
-        const antagonistResult = this.assessVictory(board, friendlyToken);
+        const antagonistResult = this.assessVictory(board, friendlyToken, depth);
         if (antagonistResult != null) {
           expansionResult += antagonistResult;
           continue;
         }
-        expansionResult += this.search(board, friendlyToken, depth - 1)[1];
-        // we have to call search, here. then sum the results.
+        expansionResult += this.search(board, friendlyToken, depth + 1)[1];
       }
-      console.log(`expansionResult=${expansionResult}`);
       results[colIndex] = expansionResult;
     }
 
     let totalResult = 0;
     let bestResult: number = -Infinity;
-    console.log(JSON.stringify(results));
+    if ( depth === 0 ) { console.log(`Results ${JSON.stringify(results)}`); }
 
     for (let i = 0; i < results.length; ++i) {
       if (results[i] != null) {
@@ -126,9 +128,22 @@ class PlayerAi {
     }
     outputResult[1] = totalResult;
 
-    console.log('outputResult: ', JSON.stringify(outputResult));
-
     this.map.set(JSON.stringify(gameBoard), outputResult);
     return outputResult;
   }
 }
+
+// we setup this poll function, because otherwise we cannot terminate the worker properly.
+function poll() {
+  if (messageData) {
+    const gameBoard: GameBoard = messageData.Board;
+    const friendlyToken: TokenColour = messageData.Token;
+    const ai: PlayerAi = new PlayerAi();
+    const response = ai.move(gameBoard, friendlyToken);
+    postMessage(response);
+    messageData = null;
+  }
+  setTimeout(poll, 300);
+}
+
+poll();

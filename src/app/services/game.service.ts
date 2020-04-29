@@ -16,18 +16,30 @@ export class GameService {
     this.newGame();
   }
 
+  private setupAiWorker() {
+    if (typeof Worker !== 'undefined') {
+      this.aiWorker = new Worker('../player-ai.worker.ts', { type: 'module' });
+      this.aiWorker.onmessage = ({ data }) => {
+        this.updateColumnImpl(data);
+      };
+    }
+    else {
+      console.log('AI Not supported');
+    }
+  }
+
   public getTokenColour(): TokenColour {
     return this.nextToken;
   }
 
-  public updateColumn(colIndex: number) {
+  public updateColumn(colIndex: number): void {
     if (this.players.getCurrent() !== PlayerType.human) {
       return;
     }
     this.updateColumnImpl(colIndex);
   }
 
-  private updateColumnImpl(colIndex: number) {
+  private updateColumnImpl(colIndex: number): void {
     GameBoard.addToColumn(this.board, colIndex, this.getTokenColour());
     const winner = this.checkWinner();
     const boardFull = GameBoard.isBoardFull(this.board);
@@ -49,22 +61,14 @@ export class GameService {
     }
   }
 
-  private playerTurnAI(): void {
-    if (typeof Worker !== 'undefined') {
-      const worker = new Worker('../player-ai.worker.ts', { type: 'module' });
-      worker.onmessage = ({ data }) => {
-        this.updateColumnImpl(data);
-      };
+  private aiWorker: Worker;
 
-      const gameData: any = { Board: this.board, Token: this.getTokenColour() };
-      worker.postMessage(gameData);
-    } else {
-      // Web Workers are not supported in this environment.
-      // You should add a fallback so that your program still executes correctly.
-    }
+  private playerTurnAI(): void {
+    const gameData: any = { Board: this.board, Token: this.getTokenColour() };
+    this.aiWorker.postMessage(gameData);
   }
   public newGame(): void {
-
+    if ( this.aiWorker ) { console.log(`terminating`); this.aiWorker.terminate(); this.aiWorker = null; }
     switch (this.settings.gameType) {
       case GameType.playerVplayer:
         this.players = new Players(PlayerType.human, PlayerType.human);
@@ -72,6 +76,7 @@ export class GameService {
       case GameType.playerVai:
       default:
         this.players = new Players(PlayerType.human, PlayerType.computer);
+        this.setupAiWorker();
         break;
     }
 
