@@ -1,4 +1,3 @@
-import { PlayerAiService } from './player-ai.service';
 import { GameBoard } from './game-board';
 import { GameSettings, GameType } from './game-settings';
 import { VictoryCheckService } from './victory-check.service';
@@ -15,7 +14,6 @@ export class GameService {
   board: GameBoard;
 
   constructor(
-    private playerAiService: PlayerAiService
   ) {
     this.newGame({ gameType: GameType.playerVplayer });
 
