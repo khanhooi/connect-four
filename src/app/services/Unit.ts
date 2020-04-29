@@ -9,6 +9,11 @@ export enum PlayerType {
   computer= 1
 }
 
+export enum GameType {
+  playerVplayer = 1,
+  playerVai = 2
+}
+
 export class Players {
   constructor( first: PlayerType, second: PlayerType ){
     this.second = second;

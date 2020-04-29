@@ -1,4 +1,4 @@
-import { GameType, GameSettings } from '../services/game-settings';
+import { GameSettingsService } from './../services/game-settings.service';
 import { GameService } from './../services/game.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,22 +10,18 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private gameService: GameService, private router: Router) { }
+  constructor(private gameService: GameService, private router: Router, public settings: GameSettingsService) { }
 
   public myVar: any = 0;
-  public settings: GameSettings;
 
-  ngOnInit(): void {
-    this.settings = new GameSettings();
-    this.settings.gameType= GameType.playerVai;
-  }
+  ngOnInit(): void {}
 
   onSelectionChange(entry): void {
     this.settings.gameType = entry;
 }
 
-startGame():void {
-  this.gameService.newGame(this.settings);
+startGame(): void {
+  this.gameService.newGame();
   this.router.navigateByUrl('game');
 }
 }

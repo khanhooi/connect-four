@@ -1,7 +1,7 @@
+import { GameSettingsService } from './game-settings.service';
 import { GameBoard } from './game-board';
-import { GameSettings, GameType } from './game-settings';
 import { VictoryCheck } from './victory-check';
-import { Players, Unit, TokenColour, PlayerType } from './Unit';
+import { Players, Unit, TokenColour, PlayerType, GameType } from './Unit';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -10,13 +10,10 @@ import { Injectable } from '@angular/core';
 export class GameService {
   private nextToken: TokenColour;
   private players: Players;
-  private settings: GameSettings;
   board: GameBoard;
 
-  constructor(
-  ) {
-    this.newGame({ gameType: GameType.playerVplayer });
-
+  constructor(private settings: GameSettingsService) {
+    this.newGame();
   }
 
   public getTokenColour(): TokenColour {
@@ -56,7 +53,7 @@ export class GameService {
     if (typeof Worker !== 'undefined') {
       const worker = new Worker('../player-ai.worker.ts', { type: 'module' });
       worker.onmessage = ({ data }) => {
-        this.updateColumnImpl( data );
+        this.updateColumnImpl(data);
       };
 
       const gameData: any = { Board: this.board, Token: this.getTokenColour() };
@@ -66,10 +63,9 @@ export class GameService {
       // You should add a fallback so that your program still executes correctly.
     }
   }
-  public newGame(settings: GameSettings): void {
-    this.settings = settings;
+  public newGame(): void {
 
-    switch (settings.gameType) {
+    switch (this.settings.gameType) {
       case GameType.playerVplayer:
         this.players = new Players(PlayerType.human, PlayerType.human);
         break;
@@ -85,7 +81,7 @@ export class GameService {
   }
 
   public restart(): void {
-    this.newGame(this.settings);
+    this.newGame();
   }
 
   public checkWinner(): TokenColour | null {
