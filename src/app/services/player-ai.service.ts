@@ -14,28 +14,22 @@ export class PlayerAiService {
   private map: Map<String, [number,number]>;
 
   nextMove(gameBoard: GameBoard, tokenColour: TokenColour): Observable<number> {
-    // let col;
-    // do {
-    //   col = Math.floor(Math.random() * GameBoard.COLUMNS);
-    // } while (GameBoard.isColumnFull(gameBoard[col]));
 
-    // const randomDelay: number = 500 + Math.random() * 1000;
-
-    // return of(col).pipe(delay(randomDelay));
-
-    // const result = this.search(gameBoard, tokenColour, 2)[0];
-    // console.log(`result=${result};`);
-
-
-    // return of( result );
     this.map = new Map();
-    return  of(this.search(gameBoard, tokenColour, Infinity)[0]);
+    let result = this.search(gameBoard, tokenColour, Infinity)[0];
+    console.log(`Assessed Victory ${this.assessedVictory} times.`);
+
+    return  of(result);
   }
+
+  private assessedVictory=0;
 
   private assessVictory(
     gameBoard: GameBoard,
     friendlyToken: TokenColour
   ): number {
+
+    this.assessedVictory++;
     const result = this.victoryCheckService.check(gameBoard);
     if (result) {
       return result === friendlyToken ? 10 : -50;
@@ -132,7 +126,6 @@ export class PlayerAiService {
 
     for (let i = 0; i < results.length; ++i) {
       if (results[i] != null ) {
-        // console.log(`for index ${i}, result[i]=${results[i]} and best result=${bestResult}`)
         if (results[i] > bestResult) {
           outputResult[0] = i;
           bestResult = results[i];
