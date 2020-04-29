@@ -49,9 +49,10 @@ export class GameService {
     this.players.switch();
 
     if (this.players.getCurrent() === PlayerType.computer) {
-      this.playerAiService
-        .nextMove(this.board, this.getTokenColour())
-        .subscribe((col) => this.updateColumnImpl(col));
+      // I think we need an observable which links changes to the player to the ai.
+      this.playerAiService.gameBoard = this.board;
+      this.playerAiService.tokenColour = this.getTokenColour();
+      this.playerAiService.engine.subscribe((col) => this.updateColumnImpl(col));
     }
   }
   public newGame(settings: GameSettings): void {

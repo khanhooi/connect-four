@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.settings = new GameSettings();
-    this.settings.gameType= GameType.playerVplayer;
+    this.settings.gameType= GameType.playerVai;
   }
 
   onSelectionChange(entry): void {

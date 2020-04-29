@@ -8,15 +8,39 @@ import { delay } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
+
 export class PlayerAiService {
+
+  sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+
+      }
+    }
+  }
+
+  public gameBoard: GameBoard;
+  public tokenColour: TokenColour;
+
   constructor(private victoryCheckService: VictoryCheckService) {}
 
   private map: Map<String, [number,number]>;
 
-  nextMove(gameBoard: GameBoard, tokenColour: TokenColour): Observable<number> {
+  readonly engine = new Observable<number>(subscriber => {
+
+      this.sleep(2000);
+      subscriber.next(1);
+      subscriber.complete();
+    });
+
+
+  nextMove(): Observable<number> {
 
     this.map = new Map();
-    let result = this.search(gameBoard, tokenColour, Infinity)[0];
+    let result = this.search(this.gameBoard, this.tokenColour, Infinity)[0];
     console.log(`Assessed Victory ${this.assessedVictory} times.`);
 
     return  of(result);
@@ -30,7 +54,8 @@ export class PlayerAiService {
   ): number {
 
     this.assessedVictory++;
-    const result = this.victoryCheckService.check(gameBoard);
+    let result;
+    this.victoryCheckService.check(gameBoard);
     if (result) {
       return result === friendlyToken ? 10 : -50;
     }
@@ -78,10 +103,6 @@ export class PlayerAiService {
     let results: number[] = [gameBoard.length];
 
 
-    // const newBoards = this.populatePossibilities(
-    //   gameBoard,
-    //   friendlyToken
-    // );
 
     for (let colIndex = 0; colIndex < gameBoard.length; colIndex++) {
       let newBoard = GameBoard.copy(gameBoard);
