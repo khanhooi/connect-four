@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VictoryCheckService } from './victory-check';
+import { VictoryCheck } from './victory-check';
 
 describe('VictoryCheckService', () => {
-  let service: VictoryCheckService;
+  let service: VictoryCheck;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(VictoryCheckService);
+    service = TestBed.inject(VictoryCheck);
   });
 
   it('should be created', () => {

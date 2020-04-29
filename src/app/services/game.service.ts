@@ -1,6 +1,6 @@
 import { GameBoard } from './game-board';
 import { GameSettings, GameType } from './game-settings';
-import { VictoryCheckService } from './victory-check';
+import { VictoryCheck } from './victory-check';
 import { Players, Unit, TokenColour, PlayerType } from './Unit';
 import { Injectable } from '@angular/core';
 
@@ -88,7 +88,7 @@ export class GameService {
   }
 
   public checkWinner(): TokenColour | null {
-    const winner = VictoryCheckService.check(this.board);
+    const winner = VictoryCheck.check(this.board);
     return winner;
   }
 }

@@ -1,6 +1,6 @@
 import { Unit, TokenColour } from './Unit';
 
-export class VictoryCheckService {
+export class VictoryCheck {
   constructor() {}
 
   static readonly victoryCondition: number = 4;
