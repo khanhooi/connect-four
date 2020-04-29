@@ -3,14 +3,13 @@ import { TokenColour } from './services/Unit';
 import { GameBoard } from './services/game-board';
 import { AiPlayer } from './ai-player';
 
-
 let messageData: any = null;
+const ai: AiPlayer = new AiPlayer();
 
 addEventListener('message', ({ data }) => {
-  if ( messageData === null ) {
+  if (messageData === null) {
     messageData = data;
-  }
-  else{
+  } else {
     throw new Error('Requested more than one AI move at once.');
   }
 });
@@ -20,7 +19,6 @@ function poll() {
   if (messageData) {
     const gameBoard: GameBoard = messageData.Board;
     const friendlyToken: TokenColour = messageData.Token;
-    const ai: AiPlayer = new AiPlayer();
     const response = ai.move(gameBoard, friendlyToken);
     postMessage(response);
     messageData = null;
@@ -28,4 +26,5 @@ function poll() {
   setTimeout(poll, 300);
 }
 
+// Setup a poll until the worker is terminated.
 poll();
