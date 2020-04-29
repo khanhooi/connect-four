@@ -54,12 +54,13 @@ export class GameService {
 
   private playerTurnAI(): void {
     if (typeof Worker !== 'undefined') {
-      // Create a new
       const worker = new Worker('../player-ai.worker.ts', { type: 'module' });
       worker.onmessage = ({ data }) => {
         this.updateColumnImpl( data );
       };
-      worker.postMessage('hello');
+
+      const gameData: any = { Board: this.board, Token: this.getTokenColour() };
+      worker.postMessage(gameData);
     } else {
       // Web Workers are not supported in this environment.
       // You should add a fallback so that your program still executes correctly.

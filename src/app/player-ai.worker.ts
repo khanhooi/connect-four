@@ -1,29 +1,33 @@
-
 /// <reference lib="webworker" />
 import { PlayerType, TokenColour } from './services/Unit';
 import { GameBoard } from './services/game-board';
-// import { VictoryCheckService } from './services/victory-check.service';
-// import { PlayerAiService } from './services/player-ai.service';
+import { VictoryCheck } from './services/victory-check';
 
 addEventListener('message', ({ data }) => {
-  const response = 1;
+  const ai: PlayerAi = new PlayerAi();
+  const gameBoard: GameBoard = data.Board;
+  const friendlyToken: TokenColour = data.Token;
+  const response = ai.move(gameBoard, friendlyToken);
   postMessage(response);
 });
 
 class PlayerAi {
-  public gameBoard: GameBoard;
-  public tokenColour: TokenColour;
   private map: Map<string, [number, number]> = new Map();
 
   private assessedVictory = 0;
 
+  readonly DEPTH = 3;
+
+  public move(gameBoard: GameBoard, tokenColour: TokenColour): number {
+    const columnIndex = this.search(gameBoard, tokenColour, this.DEPTH)[0];
+    return columnIndex;
+  }
   private assessVictory(
     gameBoard: GameBoard,
     friendlyToken: TokenColour
   ): number {
     this.assessedVictory++;
-    let result;
-    // VictoryCheckService.check(gameBoard);
+    let result = VictoryCheck.check(gameBoard);
     if (result) {
       return result === friendlyToken ? 10 : -50;
     }
