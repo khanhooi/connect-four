@@ -19,6 +19,7 @@ export class GameService {
     private playerAiService: PlayerAiService
   ) {
     this.newGame({ gameType: GameType.playerVplayer });
+
   }
 
   public getTokenColour(): TokenColour {
@@ -50,9 +51,21 @@ export class GameService {
 
     if (this.players.getCurrent() === PlayerType.computer) {
       // I think we need an observable which links changes to the player to the ai.
-      this.playerAiService.gameBoard = this.board;
-      this.playerAiService.tokenColour = this.getTokenColour();
-      this.playerAiService.engine.subscribe((col) => this.updateColumnImpl(col));
+      this.playerTurnAI();
+    }
+  }
+
+  private playerTurnAI(): void {
+    if (typeof Worker !== 'undefined') {
+      // Create a new
+      const worker = new Worker('../player-ai.worker.ts', { type: 'module' });
+      worker.onmessage = ({ data }) => {
+        this.updateColumnImpl( data );
+      };
+      worker.postMessage('hello');
+    } else {
+      // Web Workers are not supported in this environment.
+      // You should add a fallback so that your program still executes correctly.
     }
   }
   public newGame(settings: GameSettings): void {
@@ -78,7 +91,7 @@ export class GameService {
   }
 
   public checkWinner(): TokenColour | null {
-    const winner = this.victoryCheckService.check(this.board);
+    const winner = VictoryCheckService.check(this.board);
     return winner;
   }
 }
