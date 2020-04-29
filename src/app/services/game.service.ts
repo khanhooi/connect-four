@@ -18,7 +18,7 @@ export class GameService {
 
   private setupAiWorker() {
     if (typeof Worker !== 'undefined') {
-      this.aiWorker = new Worker('../player-ai.worker.ts', { type: 'module' });
+      this.aiWorker = new Worker('../ai.worker.ts', { type: 'module' });
       this.aiWorker.onmessage = ({ data }) => {
         this.updateColumnImpl(data);
       };
