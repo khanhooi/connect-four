@@ -1,6 +1,6 @@
 import { GameBoard } from './game-board';
 import { GameSettings, GameType } from './game-settings';
-import { VictoryCheckService } from './victory-check.service';
+import { VictoryCheckService } from './victory-check';
 import { Players, Unit, TokenColour, PlayerType } from './Unit';
 import { Injectable } from '@angular/core';
 

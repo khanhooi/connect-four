@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VictoryCheckService } from './victory-check.service';
+import { VictoryCheckService } from './victory-check';
 
 describe('VictoryCheckService', () => {
   let service: VictoryCheckService;
