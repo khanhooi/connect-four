@@ -15,7 +15,6 @@ export class GameService {
   board: GameBoard;
 
   constructor(
-    private victoryCheckService: VictoryCheckService,
     private playerAiService: PlayerAiService
   ) {
     this.newGame({ gameType: GameType.playerVplayer });

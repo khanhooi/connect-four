@@ -11,5 +11,5 @@ export class PlayerAiService {
   public gameBoard: GameBoard;
   public tokenColour: TokenColour;
 
-  constructor(private victoryCheckService: VictoryCheckService) {}
+  constructor() {}
 }
