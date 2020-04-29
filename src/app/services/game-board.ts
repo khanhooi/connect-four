@@ -6,8 +6,8 @@ export type GameBoard = GameColumn[];
 
 // tslint:disable-next-line: no-namespace
 export namespace GameBoard{
-  export const COLUMNS = 7;
-  export const ROWS = 6;
+  export const COLUMNS = 4; // 7;
+  export const ROWS = 3;// 6;
 
 
   export function blankBoard(): GameBoard {

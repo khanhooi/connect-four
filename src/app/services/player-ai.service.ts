@@ -11,6 +11,8 @@ import { delay } from 'rxjs/operators';
 export class PlayerAiService {
   constructor(private victoryCheckService: VictoryCheckService) {}
 
+  private map: Map<String, [number,number]>;
+
   nextMove(gameBoard: GameBoard, tokenColour: TokenColour): Observable<number> {
     // let col;
     // do {
@@ -26,7 +28,8 @@ export class PlayerAiService {
 
 
     // return of( result );
-    return  of(this.search(gameBoard, tokenColour, 2)[0]);
+    this.map = new Map();
+    return  of(this.search(gameBoard, tokenColour, Infinity)[0]);
   }
 
   private assessVictory(
@@ -56,7 +59,6 @@ export class PlayerAiService {
     }
     return boards;
   }
-
   /*
    *
    * Returns, a tuple, < best column index, total score >
@@ -67,13 +69,18 @@ export class PlayerAiService {
     depth: number
   ): [number, number] {
 
+    if ( this.map.has( JSON.stringify(gameBoard) ) ) {
+      console.log("map Hit!");
+
+      return this.map.get( JSON.stringify(gameBoard));
+    }
     if ( depth <= 0 ) { console.log("depth limit reached, returning.");
      return [ 0, 0]; }
     const friendlyToken = tokenColour;
     const antagonist =
       tokenColour === TokenColour.red ? TokenColour.yellow : TokenColour.red;
 
-    let outputResult: [number, number] = [null, null];
+    let outputResult: [number, number] = [null, 0];
     let results: number[] = [gameBoard.length];
 
 
@@ -93,7 +100,7 @@ export class PlayerAiService {
       GameBoard.addToColumn(newBoard, colIndex, friendlyToken);
 
       let result: number = this.assessVictory(gameBoard, friendlyToken);
-      if (result) {
+      if (result != null) {
         results[colIndex] = result;
         continue;
       }
@@ -115,6 +122,7 @@ export class PlayerAiService {
         expansionResult += this.search( board, friendlyToken, depth - 1)[1];
         // we have to call search, here. then sum the results.
       }
+      console.log( `expansionResult=${expansionResult}`);
       results[colIndex] = expansionResult;
     }
 
@@ -124,7 +132,7 @@ export class PlayerAiService {
 
     for (let i = 0; i < results.length; ++i) {
       if (results[i] != null ) {
-        console.log(`for index ${i}, result[i]=${results[i]} and best result=${bestResult}`)
+        // console.log(`for index ${i}, result[i]=${results[i]} and best result=${bestResult}`)
         if (results[i] > bestResult) {
           outputResult[0] = i;
           bestResult = results[i];
@@ -134,7 +142,9 @@ export class PlayerAiService {
     }
     outputResult[1] = totalResult;
 
-    console.log(JSON.stringify(outputResult));
+    console.log("outputResult: ", JSON.stringify(outputResult));
+
+    this.map.set( JSON.stringify(gameBoard), outputResult);
     return outputResult;
   }
 }
