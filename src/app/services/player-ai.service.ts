@@ -11,17 +11,6 @@ import { delay } from 'rxjs/operators';
 
 export class PlayerAiService {
 
-  sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-
-      if ((new Date().getTime() - start) > milliseconds){
-        break;
-
-      }
-    }
-  }
-
   public gameBoard: GameBoard;
   public tokenColour: TokenColour;
 
@@ -31,8 +20,7 @@ export class PlayerAiService {
 
   readonly engine = new Observable<number>(subscriber => {
 
-      this.sleep(2000);
-      subscriber.next(1);
+      subscriber.next(this.search(this.gameBoard, this.tokenColour, Infinity)[0]);
       subscriber.complete();
     });
 
@@ -40,7 +28,7 @@ export class PlayerAiService {
   nextMove(): Observable<number> {
 
     this.map = new Map();
-    let result = this.search(this.gameBoard, this.tokenColour, Infinity)[0];
+    const result = this.search(this.gameBoard, this.tokenColour, Infinity)[0];
     console.log(`Assessed Victory ${this.assessedVictory} times.`);
 
     return  of(result);
