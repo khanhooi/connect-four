@@ -1,5 +1,5 @@
 <div class="boardColumn">
-  <div class="indication-token" [class.columnFull]="columnFull() === true">
+  <div class="indication-token" [class.tokenHidden]="columnFull() === true || localPlayer() === false">
     <svg
       width="100%"
       viewBox="0 0 100 100"

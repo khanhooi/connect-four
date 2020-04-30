@@ -48,6 +48,6 @@
   filter: invert(99%) sepia(37%) saturate(5269%) hue-rotate(0deg) brightness(108%) contrast(102%);
 }
 
-.columnFull {
+.tokenHidden {
   visibility: hidden !important;
 }

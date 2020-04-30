@@ -14,7 +14,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   restart():void {
-    this.gameService.restart();
+    this.gameService.newGame();
   }
 
 }

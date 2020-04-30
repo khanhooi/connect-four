@@ -8,26 +8,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GameService {
-  private nextToken: TokenColour;
-  private players: Players;
-  board: GameBoard;
 
   constructor(private settings: GameSettingsService) {
     this.newGame();
   }
+  private nextToken: TokenColour;
+  private players: Players;
+  board: GameBoard;
 
-  private setupAiWorker() {
-    if (typeof Worker !== 'undefined') {
-      this.aiWorker = new Worker('../ai.worker.ts', { type: 'module' });
-      this.aiWorker.onmessage = ({ data }) => {
-        this.updateColumnImpl(data);
-      };
-    }
-    else {
-      console.log('AI Not supported');
-    }
+  private aiWorker: Worker;
+
+  public getPlayer(): PlayerType {
+    return this.players.getCurrent();
   }
-
   public getTokenColour(): TokenColour {
     return this.nextToken;
   }
@@ -39,36 +32,11 @@ export class GameService {
     this.updateColumnImpl(colIndex);
   }
 
-  private updateColumnImpl(colIndex: number): void {
-    GameBoard.addToColumn(this.board, colIndex, this.getTokenColour());
-    const winner = this.checkWinner();
-    const boardFull = GameBoard.isBoardFull(this.board);
-    if (!winner && !boardFull) {
-      this.updateNextPlayer();
-    } else {
-      this.nextToken = null;
-    }
-  }
-
-  public updateNextPlayer(): void {
-    this.nextToken =
-      this.nextToken === Unit.Type.yellow ? Unit.Type.red : Unit.Type.yellow;
-    this.players.switch();
-
-    if (this.players.getCurrent() === PlayerType.computer) {
-      // I think we need an observable which links changes to the player to the ai.
-      this.playerTurnAI();
-    }
-  }
-
-  private aiWorker: Worker;
-
-  private playerTurnAI(): void {
-    const gameData: any = { Board: this.board, Token: this.getTokenColour() };
-    this.aiWorker.postMessage(gameData);
-  }
   public newGame(): void {
-    if ( this.aiWorker ) { console.log(`terminating`); this.aiWorker.terminate(); this.aiWorker = null; }
+    if (this.aiWorker) {
+      this.aiWorker.terminate();
+      this.aiWorker = null;
+    }
     switch (this.settings.gameType) {
       case GameType.playerVplayer:
         this.players = new Players(PlayerType.human, PlayerType.human);
@@ -81,15 +49,47 @@ export class GameService {
     }
 
     this.nextToken = Unit.Type.yellow;
-
     this.board = GameBoard.blankBoard();
   }
 
-  public restart(): void {
-    this.newGame();
+  private setupAiWorker() {
+    if (typeof Worker !== 'undefined') {
+      this.aiWorker = new Worker('../ai.worker.ts', { type: 'module' });
+      this.aiWorker.onmessage = ({ data }) => {
+        this.updateColumnImpl(data);
+      };
+    } else {
+      console.log('AI Not supported');
+    }
   }
 
-  public checkWinner(): TokenColour | null {
+  private updateColumnImpl(colIndex: number): void {
+    GameBoard.addToColumn(this.board, colIndex, this.getTokenColour());
+    const winner = this.checkWinner();
+    const boardFull = GameBoard.isBoardFull(this.board);
+    if (!winner && !boardFull) {
+      this.updateNextPlayer();
+    } else {
+      this.nextToken = TokenColour.none;
+    }
+  }
+
+  private updateNextPlayer(): void {
+    this.nextToken =
+      this.nextToken === Unit.Type.yellow ? Unit.Type.red : Unit.Type.yellow;
+    this.players.switch();
+
+    if (this.players.getCurrent() === PlayerType.computer) {
+      this.playerTurnAI();
+    }
+  }
+
+  private playerTurnAI(): void {
+    const gameData: any = { Board: this.board, Token: this.getTokenColour() };
+    this.aiWorker.postMessage(gameData);
+  }
+
+  private checkWinner(): TokenColour | null {
     const winner = VictoryCheck.check(this.board);
     return winner;
   }

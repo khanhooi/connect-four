@@ -1,6 +1,6 @@
 import { GameBoard } from './../services/game-board';
 import { GameService } from '../services/game.service';
-import { Unit } from '../services/Unit';
+import { Unit, PlayerType } from '../services/Unit';
 import { Component, OnInit, Input } from '@angular/core';
 import { GameColumn } from '../services/game-board';
 @Component({
@@ -19,6 +19,10 @@ export class BoardColumnComponent implements OnInit {
 
   columnFull(): boolean {
     return GameBoard.isColumnFull(this.column);
+  }
+
+  localPlayer(): boolean {
+    return this.gameService.getPlayer() === PlayerType.human;
   }
 
   click(): void {
