@@ -1,0 +1,24 @@
+
+.logo{
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+
+  max-height: 100%;
+  max-width: 100%;
+  background-image: url("../../assets/abstract-polygon-background.svg");
+  mask-image: url('../../assets/connect4.3.svg');
+
+
+}
+
+.background {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+.image{
+  visibility: hidden;
+  max-width:100%;
+  height:auto;
+}

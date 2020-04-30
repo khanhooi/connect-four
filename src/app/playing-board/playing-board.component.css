@@ -1,0 +1,15 @@
+.playing-board{
+
+display: grid;
+grid-template-rows: auto 1fr;
+grid-template-areas:
+'header'
+'main';
+
+width: 100%;
+height: 100%;
+
+}
+
+.area-header { grid-area: header; height: 100%; width: 100%; }
+.area-main { grid-area: main; height: 100%; width: 100%; }

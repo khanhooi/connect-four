@@ -10,6 +10,8 @@ import { PlayerDisplayComponent } from './player-display/player-display.componen
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { MenuComponent } from './menu/menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlayingBoardComponent } from './playing-board/playing-board.component';
+import { TitleLogoComponent } from './title-logo/title-logo.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BoardSquareComponent,
     PlayerDisplayComponent,
     NavigationBarComponent,
-    MenuComponent
+    MenuComponent,
+    PlayingBoardComponent,
+    TitleLogoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+.navigation-bar{
+  /* margin-left: 5%; */
+  padding: 0;
+  background-color: slategray;
+  /* margin-right: 5%; */
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto ;
+  grid-template-areas:
+  'logo'
+  'navigation'
+  ;
+}
+
+.logo { grid-area: logo; height: 100%; width: 100%; }
+.buttons { grid-area: navigation; height: 100%; width: 100%; }
+

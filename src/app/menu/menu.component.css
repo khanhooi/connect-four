@@ -1,9 +1,14 @@
 .menu-container{
   margin: 5%;
-  padding: 5%;
+  padding:0%;
   height: calc( 100% - 10%);
   align-content: center;
   display: block;
   background-color: lightsteelblue;
   border-style: solid;
+}
+
+.logo {
+  width: 100%;
+  background-color: black;
 }
