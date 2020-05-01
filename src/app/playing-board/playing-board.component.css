@@ -14,7 +14,23 @@ height: 100%;
 .area-header { grid-area: header; height: 100%; width: 100%; }
 .area-main { grid-area: main; height: 100%; width: 100%;
 
-background-image: url('../../assets/abstract-polygon-background.svg');
-background-repeat: no-repeat;
-background-size: cover;
+
+  background-image: url('../../assets/abstract-polygon-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.bg-image{
+
+    /* Add the blur effect */
+    filter: blur(8px);
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

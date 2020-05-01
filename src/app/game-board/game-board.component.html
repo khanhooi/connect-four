@@ -1,10 +1,6 @@
-<div #container class="boardContainer" (window:resize)="onResize($event)">
-  <table class="table" [style.width.px]="getTableWidth(container.offsetWidth, container.offsetHeight)">
-    <td
-      class="boardColumn"
-      *ngFor="let column of gameService.board; let x = index"
-    >
-      <app-board-column [x]="x" [column]="column"></app-board-column>
-    </td>
-  </table>
+<div #container class="boardContainer grid" (window:resize)="onResize($event)" [style.width.px]="getTableWidth(container.offsetWidth, container.offsetHeight)">
+  <div class="boardColumn" *ngFor="let column of gameService.board; let x = index" >
+      <app-board-column  [x]="x" [column]="column"></app-board-column>
+
+  </div>
 </div>
