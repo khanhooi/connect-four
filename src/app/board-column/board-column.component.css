@@ -27,10 +27,17 @@
   margin: 0%;
   width: 100%;
 }
-.boardColumn:hover .background{
-  background-color: rgb(86, 149, 251);
+.yellow.boardColumn:hover .background{
+  background-color: rgba(255, 255, 0, 0.4);
   padding: 0;
 }
+
+.red.boardColumn:hover .background{
+  background-color: rgba(255, 0, 0, 0.4);
+  padding: 0;
+}
+
+
 
 .gameRunning.boardColumn:hover .indication-token{
   visibility: visible;
@@ -41,11 +48,11 @@
 }
 
 .filter-red:not(.tokenHidden){
-  filter: invert(15%) sepia(100%) saturate(7241%) hue-rotate(355deg) brightness(113%) contrast(118%) drop-shadow(8px 8px 10px gray);
+  filter: invert(15%) sepia(100%) saturate(7241%) hue-rotate(355deg) brightness(113%) contrast(118%);
 }
 
 .filter-yellow:not(.tokenHidden){
-  filter: invert(99%) sepia(37%) saturate(5269%) hue-rotate(0deg) brightness(108%) contrast(102%) drop-shadow(8px 8px 10px gray);
+  filter: invert(99%) sepia(37%) saturate(5269%) hue-rotate(0deg) brightness(108%) contrast(102%);
 }
 
 .tokenHidden {

@@ -15,7 +15,7 @@ height: 100%;
 .area-main { grid-area: main; height: 100%; width: 100%;
 
 
-  background-image: url('../../assets/abstract-polygon-background.svg');
+  background-image: url('../../assets/abstract-purple.png');
   background-repeat: no-repeat;
   background-size: cover;
 }

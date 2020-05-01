@@ -18,15 +18,17 @@
   border-width: 0%;
   border-radius: 50%;
   display: inline-block;
-  box-shadow: inset 3pt -3pt 12pt rgba(0, 0, 0, 1);
   transition: 0.2s;
 }
 
 .red {
   background-color: red;
+
+  box-shadow: inset 3pt -3pt 12pt rgba(0, 0, 0, 1);
 }
 .yellow {
   background-color: yellow;
+  box-shadow: inset 3pt -3pt 12pt rgba(0, 0, 0, 1);
 }
 
 .victory {
