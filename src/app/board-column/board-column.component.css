@@ -40,14 +40,15 @@
   visibility: hidden;
 }
 
-.filter-red{
-  filter: invert(15%) sepia(100%) saturate(7241%) hue-rotate(355deg) brightness(113%) contrast(118%);
+.filter-red:not(.tokenHidden){
+  filter: invert(15%) sepia(100%) saturate(7241%) hue-rotate(355deg) brightness(113%) contrast(118%) drop-shadow(8px 8px 10px gray);
 }
 
-.filter-yellow{
-  filter: invert(99%) sepia(37%) saturate(5269%) hue-rotate(0deg) brightness(108%) contrast(102%);
+.filter-yellow:not(.tokenHidden){
+  filter: invert(99%) sepia(37%) saturate(5269%) hue-rotate(0deg) brightness(108%) contrast(102%) drop-shadow(8px 8px 10px gray);
 }
 
 .tokenHidden {
   visibility: hidden !important;
+  filter: none;
 }
