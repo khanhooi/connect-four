@@ -14,10 +14,15 @@ export class GameService {
   }
   private nextToken: TokenColour;
   private players: Players;
+  private isGameOver_: boolean = true;
   board: GameBoard;
 
   private aiWorker: Worker;
 
+  public isGameOver(): boolean {
+    return this.isGameOver_;
+
+  }
   public getPlayer(): PlayerType {
     return this.players.getCurrent();
   }
@@ -49,6 +54,7 @@ export class GameService {
     }
 
     this.nextToken = Unit.Type.yellow;
+    this.isGameOver_ = false;
     this.board = GameBoard.blankBoard();
   }
 
@@ -70,6 +76,7 @@ export class GameService {
     if (!winner && !boardFull) {
       this.updateNextPlayer();
     } else {
+      this.isGameOver_ = true;
       this.nextToken = TokenColour.none;
     }
   }

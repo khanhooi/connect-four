@@ -5,6 +5,7 @@
       [class.red]="player.type === 1"
       [class.yellow]="player.type === 2"
       [class.victory]="player.isFourInARow === true"
+      [class.failure]="player.isFourInARow !== true && isGameOver() === true"
     ></span>
   </div>
 

@@ -1,4 +1,4 @@
-<div class="boardColumn">
+<div class="boardColumn" [class.gameRunning]="gameService.isGameOver() === false">
   <div
     class="indication-token"
     [class.tokenHidden]="
