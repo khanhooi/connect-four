@@ -45,7 +45,7 @@
 }
 @keyframes dropAnimation {
   0% {
-    top: -600%;
+    top: -500%;
     z-index: -10;
   }
   100% {
