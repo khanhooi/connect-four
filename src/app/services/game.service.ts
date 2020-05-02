@@ -24,10 +24,10 @@ export class GameService {
     nextToken: TokenColour
   ) {
     gameService.nextToken = nextToken;
-    gameService.players.switch();
-    if (gameService.players.getCurrent() === PlayerType.computer) {
-      gameService.playerTurnAI(nextToken);
+    if (gameService.players.getCurrent() === PlayerType.computer && gameService.aiResult !== null) {
+      gameService.updateColumnImpl(gameService.aiResult)
     }
+    gameService.playerWaitCompleted = true;
   }
 
   public isGameOver(): boolean {
@@ -75,12 +75,20 @@ export class GameService {
     if (typeof Worker !== 'undefined') {
       this.aiWorker = new Worker('../ai.worker.ts', { type: 'module' });
       this.aiWorker.onmessage = ({ data }) => {
-        this.updateColumnImpl(data);
+
+        this.aiResult = data;
+        if ( this.playerWaitCompleted === true ){
+
+          this.updateColumnImpl(this.aiResult);
+        }
       };
     } else {
       console.log('AI Not supported');
     }
   }
+
+  private playerWaitCompleted: boolean = false;
+  private aiResult: number = null;
 
   private updateColumnImpl(colIndex: number): void {
     GameBoard.addToColumn(this.board, colIndex, this.getTokenColour());
@@ -96,10 +104,19 @@ export class GameService {
   }
 
   private updateNextPlayerWithDelay(): void {
+
     const nextToken =
       this.nextToken === Unit.Type.yellow ? Unit.Type.red : Unit.Type.yellow;
     this.nextToken = Unit.Type.none;
-    setTimeout(GameService.updateNextPlayer, 1500, this, nextToken);
+
+    this.players.switch();
+
+    this.playerWaitCompleted = false;
+    if ( this.players.getCurrent() === PlayerType.computer ) {
+      this.playerTurnAI(nextToken);
+    }
+
+    setTimeout(GameService.updateNextPlayer, 1000, this, nextToken);
   }
 
   private playerTurnAI(tokenColour: TokenColour): void {
