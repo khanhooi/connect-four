@@ -19,7 +19,10 @@ export class GameService {
   private aiWorker: Worker;
 
   // Intended to be called with a delay, so must be static.
-  private static updateNextPlayer(gameService: GameService, nextToken: TokenColour) {
+  private static updateNextPlayer(
+    gameService: GameService,
+    nextToken: TokenColour
+  ) {
     gameService.nextToken = nextToken;
     gameService.players.switch();
     if (gameService.players.getCurrent() === PlayerType.computer) {
@@ -41,7 +44,9 @@ export class GameService {
     if (this.players.getCurrent() !== PlayerType.human) {
       return;
     }
-    if ( this.nextToken === TokenColour.none ) { return; }
+    if (this.nextToken === TokenColour.none) {
+      return;
+    }
     this.updateColumnImpl(colIndex);
   }
 
@@ -94,7 +99,7 @@ export class GameService {
     const nextToken =
       this.nextToken === Unit.Type.yellow ? Unit.Type.red : Unit.Type.yellow;
     this.nextToken = Unit.Type.none;
-    setTimeout( GameService.updateNextPlayer, 1500, this, nextToken );
+    setTimeout(GameService.updateNextPlayer, 1500, this, nextToken);
   }
 
   private playerTurnAI(tokenColour: TokenColour): void {
@@ -107,19 +112,19 @@ export class GameService {
     return winner;
   }
 
-  playAudio(){
+  private playAudio() {
     const audio = new Audio();
 
-    const audioAssets=[
-    '../../assets/audio/1355.wav',
-    '../../assets/audio/1357.wav',
-    '../../assets/audio/1358.wav',
-    '../../assets/audio/1362.wav',
-    '../../assets/audio/1363.wav' ];
+    const audioAssets = [
+      '../../assets/audio/1355.wav',
+      '../../assets/audio/1357.wav',
+      '../../assets/audio/1358.wav',
+      '../../assets/audio/1362.wav',
+      '../../assets/audio/1363.wav',
+    ];
 
     audio.src = audioAssets[Math.floor(Math.random() * audioAssets.length)];
     audio.load();
     audio.play();
-
   }
 }
