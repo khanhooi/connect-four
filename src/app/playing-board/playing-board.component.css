@@ -1,36 +1,30 @@
-.playing-board{
+.playing-board {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header"
+    "main";
 
-display: grid;
-grid-template-rows: auto 1fr;
-grid-template-areas:
-'header'
-'main';
-
-width: 100%;
-height: 100%;
-
+  width: 100%;
+  height: 100%;
 }
 
-.area-header { grid-area: header; height: 100%; width: 100%; }
-.area-main { grid-area: main; height: 100%; width: 100%;
+.area-header {
+  grid-area: header;
+  height: 100%;
+  width: 100%;
+}
+.area-main {
+  grid-area: main;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 15pt;
 
-
-  background-image: url('../../assets/abstract-purple.png');
+  background-image:
+    radial-gradient(black, green),
+    url("../../assets/abstract-green-background.jpg");
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
-}
-
-
-.bg-image{
-
-    /* Add the blur effect */
-    filter: blur(8px);
-
-    /* Full height */
-    height: 100%;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-blend-mode: saturation;
 }

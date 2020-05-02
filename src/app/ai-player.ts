@@ -5,7 +5,7 @@ import { VictoryCheck } from './services/victory-check';
 export class AiPlayer {
   private map: Map<string, [number, number]> = new Map();
 
-  readonly DEPTH = 2;
+  readonly DEPTH = 3;
 
   public move(gameBoard: GameBoard, tokenColour: TokenColour): number {
     const columnIndex = this.search(gameBoard, tokenColour, 0)[0];
@@ -80,7 +80,6 @@ export class AiPlayer {
         continue;
       }
 
-      let expansionResult = 0;
       // If the game didnt end, we want to expand all the possibilties,
       // so we must expand the available nodes with the antagonist token.
       const newAntagonistBoards = this.populatePossibilities(
@@ -88,15 +87,24 @@ export class AiPlayer {
         antagonist
       );
 
+      // take the smallest result
+      let minimumResult = +Infinity;
       for (const board of newAntagonistBoards) {
-        const antagonistResult = this.assessVictory(board, friendlyToken, depth);
+
+        let expansionResult: number ;
+        const antagonistResult = this.assessVictory(board, antagonist, depth);
         if (antagonistResult != null) {
-          expansionResult += antagonistResult;
-          continue;
+          expansionResult = -antagonistResult;
+          // continue;
+        } else {
+
+          expansionResult = -this.search(board, antagonist, depth + 1)[1];
         }
-        expansionResult += this.search(board, friendlyToken, depth + 1)[1];
+        if ( expansionResult < minimumResult ) { minimumResult = expansionResult; }
+        console.log(`expansion result=${expansionResult}`)
       }
-      results[colIndex] = expansionResult;
+      console.log(`minimum result=${minimumResult}`)
+      results[colIndex] = minimumResult;
     }
 
     let totalResult = 0;

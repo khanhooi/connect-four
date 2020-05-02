@@ -8,7 +8,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GameService {
-
   constructor(private settings: GameSettingsService) {
     this.newGame();
   }
@@ -19,9 +18,17 @@ export class GameService {
 
   private aiWorker: Worker;
 
+  // Intended to be called with a delay, so must be static.
+  private static updateNextPlayer(gameService: GameService, nextToken: TokenColour) {
+    gameService.nextToken = nextToken;
+    gameService.players.switch();
+    if (gameService.players.getCurrent() === PlayerType.computer) {
+      gameService.playerTurnAI();
+    }
+  }
+
   public isGameOver(): boolean {
     return this.isGameOver_;
-
   }
   public getPlayer(): PlayerType {
     return this.players.getCurrent();
@@ -71,24 +78,22 @@ export class GameService {
 
   private updateColumnImpl(colIndex: number): void {
     GameBoard.addToColumn(this.board, colIndex, this.getTokenColour());
+    this.playAudio();
     const winner = this.checkWinner();
     const boardFull = GameBoard.isBoardFull(this.board);
     if (!winner && !boardFull) {
-      this.updateNextPlayer();
+      this.updateNextPlayerWithDelay();
     } else {
       this.isGameOver_ = true;
       this.nextToken = TokenColour.none;
     }
   }
 
-  private updateNextPlayer(): void {
-    this.nextToken =
+  private updateNextPlayerWithDelay(): void {
+    const nextToken =
       this.nextToken === Unit.Type.yellow ? Unit.Type.red : Unit.Type.yellow;
-    this.players.switch();
-
-    if (this.players.getCurrent() === PlayerType.computer) {
-      this.playerTurnAI();
-    }
+    this.nextToken = Unit.Type.none;
+    setTimeout( GameService.updateNextPlayer, 1500, this, nextToken );
   }
 
   private playerTurnAI(): void {
@@ -99,5 +104,13 @@ export class GameService {
   private checkWinner(): TokenColour | null {
     const winner = VictoryCheck.check(this.board);
     return winner;
+  }
+
+  playAudio(){
+    const audio = new Audio();
+    audio.src = '../../assets/audio/1362.wav';
+    audio.load();
+    audio.play();
+
   }
 }
