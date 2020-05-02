@@ -1,4 +1,9 @@
-<div class="boardColumn" [class.red]="gameService.getTokenColour() === 1" [class.yellow]="gameService.getTokenColour()===2" [class.gameRunning]="gameService.isGameOver() === false">
+<div
+  class="boardColumn"
+  [class.red]="gameService.getTokenColour() === 1 && gameService.getPlayer() !== 1"
+  [class.yellow]="gameService.getTokenColour() === 2 && gameService.getPlayer() !== 1"
+  [class.gameRunning]="gameService.isGameOver() === false"
+>
   <div
     class="indication-token"
     [class.tokenHidden]="

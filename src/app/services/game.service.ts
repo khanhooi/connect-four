@@ -23,7 +23,7 @@ export class GameService {
     gameService.nextToken = nextToken;
     gameService.players.switch();
     if (gameService.players.getCurrent() === PlayerType.computer) {
-      gameService.playerTurnAI();
+      gameService.playerTurnAI(nextToken);
     }
   }
 
@@ -41,6 +41,7 @@ export class GameService {
     if (this.players.getCurrent() !== PlayerType.human) {
       return;
     }
+    if ( this.nextToken === TokenColour.none ) { return; }
     this.updateColumnImpl(colIndex);
   }
 
@@ -96,8 +97,8 @@ export class GameService {
     setTimeout( GameService.updateNextPlayer, 1500, this, nextToken );
   }
 
-  private playerTurnAI(): void {
-    const gameData: any = { Board: this.board, Token: this.getTokenColour() };
+  private playerTurnAI(tokenColour: TokenColour): void {
+    const gameData: any = { Board: this.board, Token: tokenColour };
     this.aiWorker.postMessage(gameData);
   }
 
@@ -108,7 +109,15 @@ export class GameService {
 
   playAudio(){
     const audio = new Audio();
-    audio.src = '../../assets/audio/1362.wav';
+
+    const audioAssets=[
+    '../../assets/audio/1355.wav',
+    '../../assets/audio/1357.wav',
+    '../../assets/audio/1358.wav',
+    '../../assets/audio/1362.wav',
+    '../../assets/audio/1363.wav' ];
+
+    audio.src = audioAssets[Math.floor(Math.random() * audioAssets.length)];
     audio.load();
     audio.play();
 

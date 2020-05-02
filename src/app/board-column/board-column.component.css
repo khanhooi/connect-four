@@ -28,12 +28,12 @@
   width: 100%;
 }
 .yellow.boardColumn:hover .background{
-  background-color: rgba(255, 255, 0, 0.6);
+  background-color: rgba(255, 255, 0, 0.5);
   padding: 0;
 }
 
 .red.boardColumn:hover .background{
-  background-color: rgba(255, 0, 0, 0.4);
+  background-color: rgba(255, 0, 0, 0.5);
   padding: 0;
 }
 
