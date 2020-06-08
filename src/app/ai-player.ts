@@ -19,7 +19,7 @@ export class AiPlayer {
     const result = VictoryCheck.check(gameBoard);
     if (result) {
       if ( result === friendlyToken ) {
-        return depth === 0 ? +Infinity : 1;
+        return depth === 0 ? +1000 : 1;
       } else {
         return -5;
       }
@@ -88,7 +88,7 @@ export class AiPlayer {
       );
 
       // take the smallest result
-      let minimumResult = +Infinity;
+      let minimumResult = +1000;
       for (const board of newAntagonistBoards) {
 
         let expansionResult: number ;
@@ -108,7 +108,7 @@ export class AiPlayer {
     }
 
     let totalResult = 0;
-    let bestResult: number = -Infinity;
+    let bestResult: number = -1000;
     if ( depth === 0 ) { console.log(`Results ${JSON.stringify(results)}`); }
 
     for (let i = 0; i < results.length; ++i) {
